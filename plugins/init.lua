@@ -1,12 +1,24 @@
+local overrides = require("custom.plugins.configs.overrides")
+
 return {
-	["neovim/nvim-lspconfig"] = {
+	["williamboman/mason-lspconfig.nvim"] = {
+		after = "mason.nvim",
 		config = function()
+			require("mason-lspconfig").setup()
+		end,
+	},
+	["neovim/nvim-lspconfig"] = {
+		after = "mason-lspconfig.nvim",
+		config = function()
+			require("mason").setup()
+			require("mason-lspconfig").setup()
 			require("plugins.configs.lspconfig")
-			require("custom.plugins.lspconfig")
+			require("custom.plugins.configs.lspconfig")
 		end,
 	},
 	["nvim-telescope/telescope.nvim"] = {
 		module = "telescope",
+		override_options = overrides.telescope,
 	},
 	["windwp/nvim-ts-autotag"] = {
 		ft = { "html", "javascriptreact" },
@@ -19,7 +31,7 @@ return {
 
 		after = "nvim-lspconfig",
 		config = function()
-			require("custom.plugins.null-ls").setup()
+			require("custom.plugins.configs.null-ls").setup()
 		end,
 	},
 	["nvim-telescope/telescope-media-files.nvim"] = {
@@ -37,10 +49,9 @@ return {
 			"TZFocus",
 		},
 		config = function()
-			require("custom.plugins.truezen").setup()
+			require("custom.plugins.configs.truezen").setup()
 		end,
 	},
-	["williamboman/nvim-lsp-installer"] = {},
 	["ThePrimeagen/harpoon"] = {
 		after = { "plenary.nvim", "telescope.nvim" },
 		config = function()
@@ -60,13 +71,30 @@ return {
 
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
-			require("custom.plugins.trouble").setup()
+			require("custom.plugins.configs.trouble").setup()
 		end,
 	},
 	["andweeb/presence.nvim"] = {},
-	["mfussenegger/nvim-dap"] = {},
+	["mfussenegger/nvim-dap"] = {
+		config = function()
+			require("custom.plugins.configs.dap").setup()
+		end,
+	},
 	["rcarriga/nvim-dap-ui"] = {
 		requires = "mfussenegger/nvim-dap",
+		config = function()
+			require("dapui").setup()
+		end,
+	},
+	["microsoft/vscode-js-debug"] = {
+		opt = true,
+		run = "npm install --legacy-peer-deps && npm run compile",
+	},
+	["mxsdev/nvim-dap-vscode-js"] = {
+		requires = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("custom.plugins.configs.dap-vscode-js").setup()
+		end,
 	},
 	["theHamsta/nvim-dap-virtual-text"] = {
 		requires = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
@@ -96,7 +124,21 @@ return {
 		requires = "nvim-treesitter/nvim-treesitter",
 
 		config = function()
-			require("custom.plugins.treesitter-context").setup()
+			require("custom.plugins.configs.treesitter-context").setup()
 		end,
+	},
+
+	-- Overrides
+	["nvim-treesitter/nvim-treesitter"] = {
+		override_options = overrides.treesitter,
+	},
+	["kyazdani42/nvim-tree.lua"] = {
+		override_options = overrides.nvimtree,
+	},
+	["folke/which-key.nvim"] = {
+		disable = false,
+	},
+	["hrsh7th/nvim-cmp"] = {
+		override_options = overrides.cmp,
 	},
 }
