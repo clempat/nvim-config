@@ -1,6 +1,7 @@
 local M = {}
 
 -- overriding default plugin configs!
+-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 M.treesitter = {
 	ensure_installed = {
 		"bash",
@@ -17,6 +18,7 @@ M.treesitter = {
 		"typescript",
 		"vim",
 		"yaml",
+    "nix",
 	},
 }
 
