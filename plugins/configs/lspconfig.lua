@@ -6,21 +6,22 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 -- Include the servers you want to have installed by default below
 -- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 local servers = {
-	"tsserver",
-	"yamlls",
-	"graphql",
-	"omnisharp",
-	"dockerls",
-	"stylelint_lsp",
 	"cssls",
-	"html",
+	"dockerls",
 	"ember",
-	"tailwindcss",
+	"eslint",
 	"golangci_lint_ls",
 	"gopls",
+	"graphql",
+	"html",
 	"jdtls",
+	"omnisharp",
+  "rnix",
+	"stylelint_lsp",
+	"tailwindcss",
 	"terraformls",
-	"eslint",
+	"tsserver",
+	"yamlls",
 }
 
 for _, lsp in ipairs(servers) do
