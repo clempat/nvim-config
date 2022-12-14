@@ -14,6 +14,7 @@ M.treesitter = {
 		"json",
 		"lua",
 		"markdown",
+    "rust",
 		"toml",
 		"typescript",
 		"vim",

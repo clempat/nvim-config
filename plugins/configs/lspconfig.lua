@@ -17,6 +17,7 @@ local servers = {
 	"jdtls",
 	"omnisharp",
   "rnix",
+  "rust_analyzer",
 	"stylelint_lsp",
 	"tailwindcss",
 	"terraformls",
