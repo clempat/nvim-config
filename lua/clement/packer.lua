@@ -63,5 +63,4 @@ return require('packer').startup(function(use)
             'j-hui/fidget.nvim',
         }
     }
-
 end)
