@@ -5,13 +5,25 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'tsserver',
     'eslint',
-    'sumneko_lua',
     'rust_analyzer',
     'rnix',
 })
 
+-- Special treatment for lua
+lsp.configure('sumneko_lua', {
+    force_setup = true,
+    settings = {
+        Lua = {
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+            },
+        },
+    },
+})
+
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
@@ -29,10 +41,10 @@ vim.diagnostic.config({
 })
 
 lsp.on_attach(function(client, bufnr)
-    local opts = {buffer = bufnr, remap = false}
+    local opts = { buffer = bufnr, remap = false }
     if client.name == "eslint" then
-      vim.cmd [[ LspStop eslint ]]
-      return
+        vim.cmd [[ LspStop eslint ]]
+        return
     end
 
 
