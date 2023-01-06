@@ -18,6 +18,9 @@ return require('packer').startup(function(use)
         as = 'rose-pine',
         config = function()
             vim.cmd('colorscheme rose-pine')
+            -- Add transparency
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         end
     })
 
