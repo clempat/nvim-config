@@ -134,6 +134,16 @@ _G.packer_plugins = {
     path = "/Users/cp/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
   },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
+    url = "https://github.com/onsails/lspkind-nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
+    url = "https://github.com/glepnir/lspsaga.nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/Users/cp/.local/share/nvim/site/pack/packer/start/lualine.nvim",
@@ -149,10 +159,25 @@ _G.packer_plugins = {
     path = "/Users/cp/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/cp/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
+    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -163,6 +188,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cp/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-ts-autotag"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
+    url = "https://github.com/windwp/nvim-ts-autotag"
+  },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring",
+    url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -180,10 +220,15 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["rose-pine"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0" },
+    config = { "\27LJ\2\nª\1\0\0\5\0\t\0\0196\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\5\0005\4\6\0B\0\4\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\a\0005\4\b\0B\0\4\1K\0\1\0\1\0\1\abg\tnone\16NormalFloat\1\0\1\abg\tnone\vNormal\16nvim_set_hl\bapi\26colorscheme rose-pine\bcmd\bvim\0" },
     loaded = true,
     path = "/Users/cp/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
+  },
+  ["telescope-file-browser.nvim"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
   },
   ["telescope-fzf-native.nvim"] = {
     cond = { true },
@@ -212,13 +257,18 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cp/.local/share/nvim/site/pack/packer/start/vim-sleuth",
     url = "https://github.com/tpope/vim-sleuth"
+  },
+  ["zen-mode.nvim"] = {
+    loaded = true,
+    path = "/Users/cp/.local/share/nvim/site/pack/packer/start/zen-mode.nvim",
+    url = "https://github.com/folke/zen-mode.nvim"
   }
 }
 
 time([[Defining packer_plugins]], false)
 -- Config for: rose-pine
 time([[Config for rose-pine]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
+try_loadstring("\27LJ\2\nª\1\0\0\5\0\t\0\0196\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\5\0005\4\6\0B\0\4\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\a\0005\4\b\0B\0\4\1K\0\1\0\1\0\1\abg\tnone\16NormalFloat\1\0\1\abg\tnone\vNormal\16nvim_set_hl\bapi\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
 time([[Config for rose-pine]], false)
 -- Conditional loads
 time([[Conditional loading of telescope-fzf-native.nvim]], true)

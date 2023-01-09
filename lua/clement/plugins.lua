@@ -7,6 +7,7 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    use 'nvim-telescope/telescope-file-browser.nvim' -- file browser with telescope
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         -- or                            , branch = '0.1.x',
@@ -19,12 +20,15 @@ return require('packer').startup(function(use)
         config = function()
             vim.cmd('colorscheme rose-pine')
             -- Add transparency
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+            vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         end
     })
 
     use({ 'nvim-treesitter/nvim-treesitter', { run = ':TSUpade' } })
+
+
+    use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
     use('nvim-treesitter/playground')
 
@@ -36,11 +40,24 @@ return require('packer').startup(function(use)
     use('lewis6991/gitsigns.nvim')
 
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-    use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+    use { 'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
+        requires = {
+            'JoosepAlviste/nvim-ts-context-commentstring'
+        }
+    }
     use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
     -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
+    use 'onsails/lspkind-nvim' -- vscode-like pictograms
+
+    use 'kyazdani42/nvim-web-devicons' -- File icons
+
+    use 'windwp/nvim-autopairs'
+    use 'windwp/nvim-ts-autotag'
+    use 'norcalli/nvim-colorizer.lua'
+    use 'folke/zen-mode.nvim'
 
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -64,6 +81,9 @@ return require('packer').startup(function(use)
 
             -- Useful status updates for LSP
             'j-hui/fidget.nvim',
+
+            -- UI
+            'glepnir/lspsaga.nvim'
         }
     }
 

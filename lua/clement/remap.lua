@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) Using file browser with telescope
 vim.keymap.set("i", "jk", "<Esc>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -25,7 +25,7 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 -- This is going to get me cancelled
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>f", function()
-    vim.lsp.buf.format()
+  vim.lsp.buf.format()
 end)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
