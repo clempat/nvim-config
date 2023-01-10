@@ -1,6 +1,9 @@
+local status, n = pcall(require, "gitsigns")
+if (not status) then return end
+
 -- Gitsigns
 -- See `:help gitsigns.txt`
-require('gitsigns').setup {
+n.setup {
   signs = {
     add = { text = '+' },
     change = { text = '~' },

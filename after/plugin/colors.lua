@@ -1,6 +1,7 @@
-local rosepine = require("rose-pine")
+local status, n = pcall(require, "rose-pine")
+if (not status) then return end
 
-rosepine.setup({
+n.setup({
 	disable_background = true,
 	disable_float_background = true,
 })
