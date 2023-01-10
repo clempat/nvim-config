@@ -1,13 +1,8 @@
 # NEOVIM Configuration
 
-This is an extension of the [NvChad Project](https://github.com/NvChad/NvChad).
+# How to setup
 
-## Installation
-
-Clone the project in the custom folder of NvChad
-
-```
-git clone https://github.com/clempat/nvim-config.git ~/.config/nvim/lua/custom
-```
-
-Open Neovim and update packer with `:PackerSync`
+1. Clone the repository
+2. cd `nvim-config`
+3. `ln -s $(pwd) ~/.config/nvim`
+4. `nvim -S ~/.config/nvim/lua/clement/packer.lua +PackerSync`
