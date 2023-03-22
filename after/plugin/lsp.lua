@@ -23,7 +23,7 @@ lsp.ensure_installed({
 })
 
 -- Special treatment for lua
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
     force_setup = true,
     settings = {
         Lua = {
@@ -81,7 +81,6 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-
 end)
 
 lsp.setup()

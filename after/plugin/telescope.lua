@@ -33,9 +33,13 @@ telescope.setup({
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>fg', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>fw', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
+vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
+vim.keymap.set('n', '<leader>gw', require('telescope').extensions.git_worktree.git_worktrees,
+	{ desc = "Open [G]it [W]orktree" })
+vim.keymap.set('n', '<leader>gn', require('telescope').extensions.git_worktree.create_git_worktree,
+	{ desc = "[G]it [N]ew Branch" })
 vim.keymap.set('n', '<leader>pv', function()
 	telescope.extensions.file_browser.file_browser({
 		path = "%:p:h",
@@ -52,3 +56,4 @@ end)
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'file_browser')
+pcall(require("telescope").load_extension, "git_worktree")

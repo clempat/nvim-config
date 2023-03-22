@@ -37,6 +37,7 @@ return require('packer').startup(function(use)
 
     use('tpope/vim-fugitive')
     use('lewis6991/gitsigns.nvim')
+    use('ThePrimeagen/git-worktree.nvim')
 
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
     use { 'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
@@ -88,4 +89,8 @@ return require('packer').startup(function(use)
 
     use 'wakatime/vim-wakatime'
 
+    use {
+        "folke/trouble.nvim",
+        requires = "nvim-tree/nvim-web-devicons",
+    }
 end)
