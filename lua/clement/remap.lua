@@ -49,3 +49,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- lazygit
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")

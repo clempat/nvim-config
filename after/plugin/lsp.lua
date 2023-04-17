@@ -12,6 +12,7 @@ lsp.ensure_installed({
     "gopls",
     "html",
     "jdtls",
+    "lua_ls",
     "omnisharp",
     "rnix",
     "rust_analyzer",
@@ -33,6 +34,15 @@ lsp.configure('lua_ls', {
             },
         },
     },
+})
+
+-- Don't care about yaml key ordering
+lsp.configure("yamlls", {
+    settings = {
+        yaml = {
+            keyOrdering = false
+        }
+    }
 })
 
 local cmp = require('cmp')
