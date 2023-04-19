@@ -40,7 +40,7 @@ return require('packer').startup(function(use)
     use('ThePrimeagen/git-worktree.nvim')
 
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-    use { 'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
+    use { 'numToStr/Comment.nvim',  -- "gc" to comment visual regions/lines
         requires = {
             'JoosepAlviste/nvim-ts-context-commentstring'
         }
@@ -50,7 +50,7 @@ return require('packer').startup(function(use)
     -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
-    use 'onsails/lspkind-nvim' -- vscode-like pictograms
+    use 'onsails/lspkind-nvim'         -- vscode-like pictograms
 
     use 'kyazdani42/nvim-web-devicons' -- File icons
 
@@ -95,4 +95,6 @@ return require('packer').startup(function(use)
     }
 
     use "kdheepak/lazygit.nvim"
+
+    use "github/copilot.vim"
 end)
