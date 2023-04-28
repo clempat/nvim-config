@@ -45,30 +45,17 @@ lsp.configure("yamlls", {
     }
 })
 
-local cmp = require('cmp')
-local lspkind = require('lspkind');
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete(),
-})
-local cmp_formatting = {
-    format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
-}
-
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings,
-    formatting = cmp_formatting
-})
-
+lsp.manage_nvim_cmp = false
 
 vim.diagnostic.config({
     virtual_text = true,
 })
 
 lsp.on_attach(function(client, bufnr)
+    if client.name == "copilot" then
+        return
+    end
+
     local opts = { buffer = bufnr, remap = false }
 
     -- format on save

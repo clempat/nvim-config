@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) Using file browser with telescope
 vim.keymap.set("i", "jk", "<Esc>")
 
+vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "<C-y>" : "<Tab>"', {expr = true, noremap = true})
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 

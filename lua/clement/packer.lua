@@ -24,7 +24,7 @@ return require('packer').startup(function(use)
         as = 'rose-pine',
     })
 
-    use({ 'nvim-treesitter/nvim-treesitter', { run = ':TSUpade' } })
+    use({ 'nvim-treesitter/nvim-treesitter' --[[ , run = ':TSUpade' ]] })
 
 
     use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
@@ -96,5 +96,13 @@ return require('packer').startup(function(use)
 
     use "kdheepak/lazygit.nvim"
 
-    use "github/copilot.vim"
+    use { "zbirenbaum/copilot.lua" }
+
+    use {
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function()
+            require("copilot_cmp").setup()
+        end
+    }
 end)
