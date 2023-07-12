@@ -5,7 +5,7 @@ copilot.setup({
 	suggestion = {
 		auto_trigger = true,
 	},
-	copilot_node_command = vim.fn.expand("$HOME") .. '/.nvm/versions/node/v18.16.0/bin/node', -- Node.js version must be > 16.x
+	-- copilot_node_command = vim.fn.expand("$HOME") .. '/.nvm/versions/node/v18.16.0/bin/node', -- Node.js version must be > 16.x
 })
 
 local status2, copilot_cmp = pcall(require, "copilot_cmp")

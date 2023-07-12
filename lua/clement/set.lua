@@ -37,3 +37,5 @@ vim.opt.pumblend = 30
 vim.opt.background = 'dark'
 
 vim.opt.splitbelow = true
+
+vim.opt.timeoutlen = 500

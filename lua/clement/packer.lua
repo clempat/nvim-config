@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
 
             -- Useful status updates for LSP
-            'j-hui/fidget.nvim',
+            { 'j-hui/fidget.nvim',                tag = 'legacy' },
 
             -- UI
             'glepnir/lspsaga.nvim'
@@ -105,4 +105,6 @@ return require('packer').startup(function(use)
             require("copilot_cmp").setup()
         end
     }
+
+    use "liuchengxu/vim-which-key"
 end)
