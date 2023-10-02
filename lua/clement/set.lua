@@ -10,7 +10,6 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
-
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
@@ -32,9 +31,9 @@ vim.g.mapleader = " "
 vim.opt.cursorline = false
 vim.opt.termguicolors = true
 vim.opt.winblend = 0
-vim.opt.wildoptions = 'pum'
+vim.opt.wildoptions = "pum"
 vim.opt.pumblend = 30
-vim.opt.background = 'dark'
+vim.opt.background = "dark"
 
 vim.opt.splitbelow = true
 
