@@ -27,18 +27,19 @@ return {
 		mason_lspconfig.setup({
 			-- list of servers for mason to install
 			ensure_installed = {
-				"tsserver",
-				"html",
 				"cssls",
-				"tailwindcss",
-				"svelte",
-				"lua_ls",
-				"graphql",
 				"emmet_ls",
-				"prismals",
-				"pyright",
+				"graphql",
+				"html",
+				"lua_ls",
 				"lua_ls",
 				"omnisharp",
+				"prismals",
+				"pyright",
+				"svelte",
+				"tailwindcss",
+				"tsserver",
+				"terraformls",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -50,6 +51,7 @@ return {
 				"csharpier",
 				"eslint_d", -- js linter
 				"isort", -- python formatter
+				"node-debug2-adapter", -- node debugger
 				"prettier", -- prettier formatter
 				"pylint", -- python linter
 				"stylua", -- lua formatter

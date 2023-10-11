@@ -42,6 +42,7 @@ return {
 					"svelte",
 					"tsx",
 					"typescript",
+					"terraform",
 					"vim",
 					"yaml",
 				},
