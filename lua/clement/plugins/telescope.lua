@@ -43,6 +43,7 @@ return {
 
 		-- load plugins
 		telescope.load_extension("fzf")
+		telescope.load_extension("git_worktree")
 
 		-- set keymaps
 		local keymap = vim.keymap
