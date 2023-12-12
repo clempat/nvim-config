@@ -6,4 +6,6 @@ return {
 	"inkarkat/vim-ReplaceWithRegister", -- replace with register contents using motion (gr + motion)
 
 	"wakatime/vim-wakatime", -- time tracking
+
+	"tpope/vim-fugitive", -- git integration
 }

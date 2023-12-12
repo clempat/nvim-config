@@ -5,7 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"nvim-tree/nvim-web-devicons",
-		"ThePrimeagen/git-worktree.nvim",
+		{ "ThePrimeagen/git-worktree.nvim" },
 		{ "nvim-telescope/telescope-file-browser.nvim" },
 	},
 	config = function()
