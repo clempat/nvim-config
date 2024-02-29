@@ -12,6 +12,7 @@ return {
 		},
 		config = function()
 			local wilder = require("wilder")
+      -- @TODO change the colorscheme
 			local macchiato = require("catppuccin.palettes").get_palette("macchiato")
 
 			-- Create a highlight group for the popup menu

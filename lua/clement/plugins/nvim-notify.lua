@@ -1,3 +1,4 @@
+-- @TODO check background warning
 return {
   {
     "rcarriga/nvim-notify",
