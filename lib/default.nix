@@ -49,7 +49,6 @@ rec {
       pkgs.zulu
       pkgs.python311
       pkgs.php
-      pkgs.julia-lts
       pkgs.python311Packages.pip
     ];
 
