@@ -40,3 +40,5 @@ opt.splitbelow = true
 
 opt.timeoutlen = 500
 
+-- Obsidian
+opt.conceallevel = 2
