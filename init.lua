@@ -1,2 +1,1 @@
-require("clement.core")
-require("clement.lazy")
+require("clement").init()

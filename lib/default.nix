@@ -42,19 +42,20 @@ rec {
       };
     in
     [
+      pkgs.cargo
       pkgs.fzf
       pkgs.luajitPackages.luarocks
-      pkgs.php83Packages.composer
-      pkgs.cargo
-      pkgs.zulu
-      pkgs.python311
+      pkgs.nixfmt
       pkgs.php
+      pkgs.php83Packages.composer
+      pkgs.python311
       pkgs.python311Packages.pip
+      pkgs.zulu
     ];
 
   mkExtraConfig = ''
     lua << EOF
-      require("clement.core")
+      require("clement").init()
       require("clement.lazy")
     EOF
   '';

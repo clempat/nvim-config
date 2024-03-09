@@ -18,6 +18,7 @@ return {
 				json = { "prettier" },
 				yaml = { "prettier" },
 				markdown = { "prettier" },
+				nix = { "nixfmt" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
