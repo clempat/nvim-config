@@ -12,4 +12,4 @@
 
 ### Remote
 
-`nix run github:clempat/nvim-config#.neovim`
+`nix run github:clempat/nvim-config#neovim`
