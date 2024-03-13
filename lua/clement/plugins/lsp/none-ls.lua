@@ -14,12 +14,13 @@ return {
 
 		mason_null_ls.setup({
 			ensure_installed = {
-				"prettier", -- prettier formatter
-				"stylua", -- lua formatter
 				"black", -- python formatter
-				"pylint", -- python linter
 				"eslint_d", -- js linter
+				"prettier", -- prettier formatter
+				"pylint", -- python linter
+				"stylua", -- lua formatter
 				"tflint", -- terraform linter
+				"stylelint", -- css linter
 			},
 		})
 
@@ -44,6 +45,7 @@ return {
 				formatting.black,
 				diagnostics.tflint,
 				diagnostics.pylint,
+				diagnostics.stylelint,
 				diagnostics.eslint_d.with({ -- js/ts linter
 					condition = function(utils)
 						return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
@@ -58,7 +60,7 @@ return {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
-              vim.lsp.buf.format({ async = false })
+							vim.lsp.buf.format({ async = false })
 						end,
 					})
 				end

@@ -36,10 +36,11 @@ return {
 				"omnisharp",
 				"prismals",
 				"pyright",
+				"stylelint-lsp",
 				"svelte",
 				"tailwindcss",
-				"tsserver",
 				"terraformls",
+				"tsserver",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -53,6 +54,7 @@ return {
 				"node-debug2-adapter", -- node debugger
 				"prettier", -- prettier formatter
 				"pylint", -- python linter
+				"stylelint", -- css linter
 				"stylua", -- lua formatter
 			},
 		})
