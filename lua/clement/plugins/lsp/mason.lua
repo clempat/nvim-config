@@ -54,6 +54,7 @@ return {
 				"node-debug2-adapter", -- node debugger
 				"prettier", -- prettier formatter
 				"pylint", -- python linter
+				"shfmt", -- shell formatter
 				"stylelint", -- css linter
 				"stylua", -- lua formatter
 			},
