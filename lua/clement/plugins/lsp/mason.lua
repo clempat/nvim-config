@@ -49,6 +49,7 @@ return {
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"black", -- python formatter
+				"djlint", -- django linter
 				"eslint_d", -- js linter
 				"isort", -- python formatter
 				"node-debug2-adapter", -- node debugger

@@ -9,6 +9,7 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				css = { "prettier" },
+				htmldjango = { "djlint" },
 				graphql = { "prettier" },
 				html = { "prettier" },
 				javascript = { "prettier" },
