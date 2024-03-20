@@ -7,39 +7,59 @@ return {
 
 		catppuccin.setup({
 			colorschemes = "catppuccino",
-			background = { -- :h background
-				light = "frappe",
-				dark = "mocha",
-			},
+			flavor = "frappe",
 			transparent_background = true,
+			color_overrides = { all = colors },
+			custom_highlights = function(colors)
+				return {
+					CurSearch = { bg = colors.yellow },
+					Diffchanged = { fg = colors.yellow },
+					DiffChanged = { fg = colors.yellow },
+				}
+			end,
 			integrations = {
-				notify = true,
+				cmp = true,
+				fidget = true,
+				gitsigns = true,
 				harpoon = true,
+				lsp_trouble = true,
 				mason = true,
+				neotest = true,
 				noice = true,
+				notify = true,
+				octo = true,
+				telescope = {
+					enabled = true,
+				},
+				treesitter = true,
+				treesitter_context = false,
+				symbols_outline = true,
+				illuminate = true,
 				which_key = true,
+				barbecue = {
+					dim_dirname = true,
+					bold_basename = true,
+					dim_context = false,
+					alt_background = false,
+				},
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+					},
+				},
 			},
 		})
 
 		vim.cmd.colorscheme("catppuccin")
 	end,
 }
--- return {
--- 	"rose-pine/neovim",
--- 	name = "rose-pine",
--- 	priority = 1000, -- make sure to load this before all the other start plugins
--- 	config = function()
--- 		local rp = require("rose-pine")
--- 		rp.setup({
--- 			disable_background = true,
--- 			disable_float_background = false,
--- 		})
---
--- 		-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- 		-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
--- 		-- vim.api.nvim_set_hl(0, "NonText", { bg = "none", blend = 80 })
---
--- 		-- load the colorscheme here
--- 		vim.cmd([[colorscheme rose-pine]])
--- 	end,
--- }

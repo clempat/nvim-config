@@ -31,11 +31,15 @@ vim.g.mapleader = " "
 
 opt.cursorline = false
 opt.termguicolors = true
+vim.g.syntax = "enable"
 opt.winblend = 0
 opt.wildoptions = "pum"
 opt.pumblend = 30
 opt.background = "dark"
 
+-- open splits in a more natural direction
+-- https://vimtricks.com/p/open-splits-more-naturally/
+opt.splitright = true
 opt.splitbelow = true
 
 opt.timeoutlen = 500
