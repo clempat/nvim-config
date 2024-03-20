@@ -11,7 +11,7 @@ return {
 				light = "frappe",
 				dark = "mocha",
 			},
-			-- transparent_background = true,
+			transparent_background = true,
 			integrations = {
 				notify = true,
 				harpoon = true,
