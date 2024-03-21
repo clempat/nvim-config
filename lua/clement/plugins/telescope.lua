@@ -2,11 +2,28 @@ return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
 	dependencies = {
+		{
+			"prochri/telescope-all-recent.nvim",
+			dependencies = {
+				"kkharji/sqlite.lua",
+			},
+			opts = {},
+		},
+		{
+			"danielfalk/smart-open.nvim",
+			branch = "0.2.x",
+			dependencies = {
+				"kkharji/sqlite.lua",
+				{ "nvim-telescope/telescope-fzy-native.nvim" },
+			},
+		},
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"nvim-tree/nvim-web-devicons",
+		"debugloop/telescope-undo.nvim",
 		{ "ThePrimeagen/git-worktree.nvim" },
 		{ "nvim-telescope/telescope-file-browser.nvim" },
+		"vuki656/package-info.nvim",
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -17,7 +34,16 @@ return {
 
 		telescope.setup({
 			defaults = {
-				file_ignore_patterns = { ".git/", "node_modules" },
+				file_ignore_patterns = {
+					".git/",
+					"node_modules",
+					".cache/",
+					".next/",
+					".DS_Store",
+					".vscode/",
+					".venv/",
+					".direnv/",
+				},
 				layout_config = {
 					height = 0.90,
 					width = 0.90,
@@ -39,7 +65,7 @@ return {
 					"--line-number",
 					"--column",
 					"--smart-case",
-					"--trim", -- add this value
+					"--trim",
 				},
 				mappings = {
 					i = {
@@ -47,6 +73,39 @@ return {
 						["<C-j>"] = actions.move_selection_next, -- move to next result
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 					},
+				},
+			},
+			pickers = {
+				buffers = {
+					prompt_prefix = "󰸩 ",
+				},
+				commands = {
+					prompt_prefix = " ",
+					layout_config = {
+						height = 0.63,
+						width = 0.78,
+					},
+				},
+				command_history = {
+					prompt_prefix = " ",
+					layout_config = {
+						height = 0.63,
+						width = 0.58,
+					},
+				},
+				git_files = {
+					prompt_prefix = "󰊢 ",
+					show_untracked = true,
+				},
+				find_files = {
+					prompt_prefix = " ",
+					find_command = { "fd", "-H" },
+				},
+				live_grep = {
+					prompt_prefix = "󰱽 ",
+				},
+				grep_string = {
+					prompt_prefix = "󰱽 ",
 				},
 			},
 			extensions = {
@@ -60,12 +119,31 @@ return {
 					initial_mode = "normal",
 					layout_config = { height = 40 },
 				},
+				["zf-native"] = {
+					file = { -- options for sorting file-like items
+						enable = true, -- override default telescope file sorter
+						highlight_results = true, -- highlight matching text in results
+						match_filename = true, -- enable zf filename match priority
+					},
+					generic = { -- options for sorting all other items
+						enable = true, -- override default telescope generic item sorter
+						highlight_results = true, -- highlight matching text in results
+						match_filename = false, -- disable zf filename match priority
+					},
+				},
+				smart_open = {
+					cwd_only = true,
+					filename_first = true,
+				},
 			},
 		})
 
 		-- load plugins
 		telescope.load_extension("fzf")
 		telescope.load_extension("git_worktree")
+		telescope.load_extension("package_info")
+		telescope.load_extension("smart_open")
+		telescope.load_extension("undo")
 
 		-- set keymaps
 		local keymap = vim.keymap

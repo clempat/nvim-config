@@ -1,15 +1,12 @@
 { inputs }:
-let
-  inherit (inputs.nixpkgs) legacyPackages;
-in
-rec {
+let inherit (inputs.nixpkgs) legacyPackages;
+in rec {
   mkVimPlugin = { system }:
     let
       inherit (pkgs) vimUtils;
       inherit (vimUtils) buildVimPlugin;
       pkgs = legacyPackages.${system};
-    in
-    buildVimPlugin {
+    in buildVimPlugin {
       name = "clement";
       postInstall = ''
         rm -rf $out/.envrc
@@ -28,8 +25,12 @@ rec {
       inherit (pkgs) vimPlugins;
       pkgs = legacyPackages.${system};
       clement-nvim = mkVimPlugin { inherit system; };
-    in
-    [
+    in [
+      {
+        plugin = pkgs.vimPlugins.sqlite-lua;
+        config =
+          "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'"; # macOS
+      }
       clement-nvim
     ];
 
@@ -40,8 +41,7 @@ rec {
         inherit system;
         config.allowUnfree = true;
       };
-    in
-    [
+    in [
       pkgs.cargo
       pkgs.fzf
       pkgs.luajitPackages.luarocks
@@ -50,6 +50,7 @@ rec {
       pkgs.php83Packages.composer
       pkgs.python311
       pkgs.python311Packages.pip
+      pkgs.sqlite
       pkgs.zulu
     ];
 
@@ -66,26 +67,24 @@ rec {
       extraPackages = mkExtraPackages { inherit system; };
       pkgs = legacyPackages.${system};
       start = mkNeovimPlugins { inherit system; };
-    in
-    neovim.override {
+    in neovim.override {
       configure = {
         customRC = mkExtraConfig;
         packages.main = { inherit start; };
       };
-      extraMakeWrapperArgs = ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
+      extraMakeWrapperArgs =
+        ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
       withNodeJs = true;
       withPython3 = true;
       withRuby = true;
     };
-
 
   mkHomeManager = { system }:
     let
       extraConfig = mkExtraConfig;
       extraPackages = mkExtraPackages { inherit system; };
       plugins = mkNeovimPlugins { inherit system; };
-    in
-    {
+    in {
       inherit extraConfig extraPackages plugins;
       enable = true;
       withNodeJs = true;
