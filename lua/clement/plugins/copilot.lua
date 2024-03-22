@@ -8,7 +8,7 @@ return {
 				enabled = true,
 				auto_trigger = true,
 				keymap = {
-					accept = "<Tab>",
+					accept = "<C-l>",
 				},
 			},
 			-- Node.js version must be > 16.x
