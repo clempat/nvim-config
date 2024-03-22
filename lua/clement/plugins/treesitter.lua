@@ -37,6 +37,7 @@ return {
 					"lua",
 					"markdown",
 					"markdown_inline",
+					"nix",
 					"prisma",
 					"query",
 					"svelte",
