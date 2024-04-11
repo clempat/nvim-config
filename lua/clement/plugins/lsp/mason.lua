@@ -36,6 +36,7 @@ return {
 				"omnisharp",
 				"prismals",
 				"pyright",
+        "debugpy",
 				"stylelint_lsp",
 				"svelte",
 				"tailwindcss",
