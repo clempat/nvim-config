@@ -36,7 +36,6 @@ return {
 				"omnisharp",
 				"prismals",
 				"pyright",
-        "debugpy",
 				"stylelint_lsp",
 				"svelte",
 				"tailwindcss",
@@ -51,6 +50,7 @@ return {
 			ensure_installed = {
 				"black", -- python formatter
 				"djlint", -- django linter
+				"debugpy",
 				"eslint_d", -- js linter
 				"isort", -- python formatter
 				"node-debug2-adapter", -- node debugger
