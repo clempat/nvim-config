@@ -21,6 +21,7 @@ return {
 				python = { "isort", "black" },
 				sh = { "shfmt" },
 				svelte = { "prettier" },
+				sass = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 				yaml = { "prettier" },
