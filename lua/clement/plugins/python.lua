@@ -29,6 +29,13 @@ return {
 		"mfussenegger/nvim-dap",
 		dependencies = {
 			"mfussenegger/nvim-dap-python",
+			{
+				"williamboman/mason.nvim",
+				opts = function(_, opts)
+					opts.ensure_installed = opts.ensure_installed or {}
+					table.insert(opts.ensure_installed, "debugpy")
+				end,
+			},
       -- stylua: ignore
       keys = {
         { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },

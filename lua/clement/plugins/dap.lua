@@ -38,7 +38,6 @@ return {
 		-- which key integration
 		{
 			"folke/which-key.nvim",
-			optional = true,
 			opts = {
 				defaults = {
 					["<leader>d"] = { name = "+debug" },
@@ -68,7 +67,7 @@ return {
 			},
 		},
 	},
-  
+
   -- stylua: ignore
   keys = {
     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },

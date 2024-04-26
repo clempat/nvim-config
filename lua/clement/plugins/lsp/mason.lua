@@ -50,7 +50,6 @@ return {
 			ensure_installed = {
 				"black", -- python formatter
 				"djlint", -- django linter
-				"debugpy",
 				"eslint_d", -- js linter
 				"isort", -- python formatter
 				"node-debug2-adapter", -- node debugger
@@ -59,6 +58,7 @@ return {
 				"shfmt", -- shell formatter
 				"stylelint", -- css linter
 				"stylua", -- lua formatter
+				-- dap
 			},
 		})
 	end,
