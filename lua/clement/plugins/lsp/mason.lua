@@ -58,7 +58,6 @@ return {
 				"shfmt", -- shell formatter
 				"stylelint", -- css linter
 				"stylua", -- lua formatter
-				-- dap
 			},
 		})
 	end,
