@@ -10,6 +10,7 @@ return {
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
+			vue = { "eslint_d" },
 			-- pylint is not working well with venv
 			-- python = { "pylint" },
 			-- Use the "*" filetype to run linters on all filetypes.
