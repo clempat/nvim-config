@@ -172,6 +172,12 @@ return {
 			},
 		})
 
+		-- configure yaml
+		lspconfig["yamlls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
 		-- configure csharp server
 		lspconfig["omnisharp"].setup({
 			capabilities = capabilities,
