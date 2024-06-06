@@ -31,6 +31,18 @@ return {
 			--     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
 			--   end,
 			-- },
+			eslint_d = {
+				args = {
+					"--no-warn-ignored", -- <-- this is the key argument
+					"--format",
+					"json",
+					"--stdin",
+					"--stdin-filename",
+					function()
+						return vim.api.nvim_buf_get_name(0)
+					end,
+				},
+			},
 		},
 	},
 	config = function(_, opts)
