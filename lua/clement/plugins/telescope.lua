@@ -24,6 +24,10 @@ return {
 		{ "ThePrimeagen/git-worktree.nvim" },
 		{ "nvim-telescope/telescope-file-browser.nvim" },
 		"vuki656/package-info.nvim",
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			version = "^1.0.0",
+		},
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -144,6 +148,7 @@ return {
 		telescope.load_extension("package_info")
 		telescope.load_extension("smart_open")
 		telescope.load_extension("undo")
+		telescope.load_extension("live_grep_args")
 
 		-- set keymaps
 		local keymap = vim.keymap
@@ -151,7 +156,12 @@ return {
 		keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
 		keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "[F]d recently [O]pened files" })
 		keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "[F]ind [G]it files" })
-		keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep<cr>", { desc = "[F]ind current [W]ord" })
+		keymap.set(
+			"n",
+			"<leader>fw",
+			":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+			{ desc = "[F]ind current [W]ord" }
+		)
 		keymap.set("n", "<leader>fs", "<cmd>Telescope grep_string<cr>", { desc = "[F]ind [S]tring in cwd" })
 		keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>", { desc = "[F]ind [D]iagnostics" })
 		keymap.set(
