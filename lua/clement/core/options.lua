@@ -46,3 +46,4 @@ opt.timeoutlen = 500
 
 -- Obsidian
 opt.conceallevel = 2
+opt.exrc = true
