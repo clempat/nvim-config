@@ -28,8 +28,7 @@ in rec {
     in [
       {
         plugin = pkgs.vimPlugins.sqlite-lua;
-        config =
-          "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'"; # macOS
+	config = if (builtins.pathExists "${pkgs.sqlite.out}/lib/libsqlite3.dylib") then "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'" else "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'";
       }
       clement-nvim
     ];
