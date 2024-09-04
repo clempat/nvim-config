@@ -41,6 +41,7 @@ return {
 				"tailwindcss",
 				"terraformls",
 				"tsserver",
+        "volar",
 				"yamlls",
 			},
 			-- auto-install configured servers (with lspconfig)
