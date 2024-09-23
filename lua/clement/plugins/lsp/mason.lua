@@ -40,8 +40,8 @@ return {
 				"svelte",
 				"tailwindcss",
 				"terraformls",
-				"tsserver",
-        "volar",
+				"ls_ts",
+				"volar",
 				"yamlls",
 			},
 			-- auto-install configured servers (with lspconfig)

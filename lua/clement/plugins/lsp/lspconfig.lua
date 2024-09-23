@@ -77,7 +77,7 @@ return {
 		})
 
 		-- configure typescript server with plugin
-		lspconfig["tsserver"].setup({
+		lspconfig["ls_ts"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
@@ -145,12 +145,12 @@ return {
 			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 		})
 
-    -- configure volar
-    lspconfig["volar"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      filetypes = { "vue" },
-    })
+		-- configure volar
+		lspconfig["volar"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "vue" },
+		})
 
 		-- configure python server
 		lspconfig["pyright"].setup({
