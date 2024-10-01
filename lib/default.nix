@@ -28,7 +28,11 @@ in rec {
     in [
       {
         plugin = pkgs.vimPlugins.sqlite-lua;
-	config = if (builtins.pathExists "${pkgs.sqlite.out}/lib/libsqlite3.dylib") then "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'" else "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'";
+        config = if (builtins.pathExists
+          "${pkgs.sqlite.out}/lib/libsqlite3.dylib") then
+          "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'"
+        else
+          "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'";
       }
       clement-nvim
     ];
@@ -44,9 +48,9 @@ in rec {
       pkgs.cargo
       pkgs.fzf
       pkgs.luajitPackages.luarocks
-      pkgs.nixfmt
-      pkgs.php
-      pkgs.php83Packages.composer
+      pkgs.nixfmt-classic
+      # pkgs.php
+      # pkgs.php83Packages.composer
       pkgs.python311
       pkgs.python311Packages.pip
       pkgs.sqlite

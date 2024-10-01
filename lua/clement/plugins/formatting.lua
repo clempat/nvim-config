@@ -17,7 +17,7 @@ return {
 				json = { "prettier" },
 				lua = { "stylua" },
 				markdown = { "prettier" },
-				nix = { "nixfmt" },
+				nix = { "nixfmt-classic" },
 				python = { "isort", "black" },
 				sh = { "shfmt" },
 				svelte = { "prettier" },

@@ -9,7 +9,6 @@ return {
 			colorschemes = "catppuccino",
 			flavor = "frappe",
 			transparent_background = true,
-			color_overrides = { all = colors },
 			custom_highlights = function(colors)
 				return {
 					CurSearch = { bg = colors.yellow },
