@@ -40,7 +40,7 @@ return {
 				"svelte",
 				"tailwindcss",
 				"terraformls",
-				"ls_ts",
+				"ts_ls",
 				"volar",
 				"yamlls",
 			},
