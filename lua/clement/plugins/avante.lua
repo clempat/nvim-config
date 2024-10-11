@@ -1,7 +1,8 @@
 return {
 	"yetone/avante.nvim",
-	event = "VeryLazy",
-	lazy = false,
+	-- event = "VeryLazy",
+	-- lazy = false,
+	cmd = { "AvanteAsk" },
 	version = false, -- set this if you want to always pull the latest change
 	opts = {
 		-- add any opts here
@@ -43,4 +44,14 @@ return {
 			ft = { "markdown", "Avante" },
 		},
 	},
+	config = function()
+		require("avante").setup({
+			claude = {
+				api_key_name = { "op", "read", "op://Private/Anthropic/NEOVIM KEY" },
+			},
+			openai = {
+				api_key_name = { "op", "read", "op://Private/Openai/api_key" },
+			},
+		})
+	end,
 }
