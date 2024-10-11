@@ -33,7 +33,7 @@ return {
 				"html",
 				"lua_ls",
 				"lua_ls",
-				"omnisharp",
+				-- "omnisharp",
 				"prismals",
 				"pyright",
 				"stylelint_lsp",
