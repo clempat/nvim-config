@@ -19,23 +19,6 @@ return {
 			-- ['_'] = { 'fallback linter' },
 			-- ["*"] = { "typos" },
 		},
-		-- LazyVim extension to easily override linter options
-		-- or add custom linters.
-		---@type table<string,table>
-		linters = {
-			eslint_d = {
-				args = {
-					"--no-warn-ignored", -- <-- this is the key argument
-					"--format",
-					"json",
-					"--stdin",
-					"--stdin-filename",
-					function()
-						return vim.api.nvim_buf_get_name(0)
-					end,
-				},
-			},
-		},
 	},
 	config = function(_, opts)
 		local M = {}
