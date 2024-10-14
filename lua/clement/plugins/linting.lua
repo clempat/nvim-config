@@ -19,6 +19,7 @@ return {
 			-- ['_'] = { 'fallback linter' },
 			-- ["*"] = { "typos" },
 		},
+		linters = {},
 	},
 	config = function(_, opts)
 		local M = {}
