@@ -2,13 +2,13 @@ return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
 	dependencies = {
-		{
-			"prochri/telescope-all-recent.nvim",
-			dependencies = {
-				"kkharji/sqlite.lua",
-			},
-			opts = {},
-		},
+		-- {
+		-- 	"prochri/telescope-all-recent.nvim",
+		-- 	dependencies = {
+		-- 		"kkharji/sqlite.lua",
+		-- 	},
+		-- 	opts = {},
+		-- },
 		{
 			"danielfalk/smart-open.nvim",
 			branch = "0.2.x",
