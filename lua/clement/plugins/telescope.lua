@@ -2,21 +2,21 @@ return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
 	dependencies = {
-		-- {
-		-- 	"prochri/telescope-all-recent.nvim",
-		-- 	dependencies = {
-		-- 		"kkharji/sqlite.lua",
-		-- 	},
-		-- 	opts = {},
-		-- },
 		{
-			"danielfalk/smart-open.nvim",
-			branch = "0.2.x",
+			"prochri/telescope-all-recent.nvim",
 			dependencies = {
 				"kkharji/sqlite.lua",
-				{ "nvim-telescope/telescope-fzy-native.nvim" },
 			},
+			opts = {},
 		},
+		-- {
+		-- 	"danielfalk/smart-open.nvim",
+		-- 	branch = "0.2.x",
+		-- 	dependencies = {
+		-- 		"kkharji/sqlite.lua",
+		-- 		{ "nvim-telescope/telescope-fzy-native.nvim" },
+		-- 	},
+		-- },
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"nvim-tree/nvim-web-devicons",
@@ -135,10 +135,10 @@ return {
 						match_filename = false, -- disable zf filename match priority
 					},
 				},
-				smart_open = {
-					cwd_only = true,
-					filename_first = true,
-				},
+				-- smart_open = {
+				-- 	cwd_only = true,
+				-- 	filename_first = true,
+				-- },
 			},
 		})
 
@@ -146,7 +146,7 @@ return {
 		telescope.load_extension("fzf")
 		telescope.load_extension("git_worktree")
 		telescope.load_extension("package_info")
-		telescope.load_extension("smart_open")
+		-- telescope.load_extension("smart_open")
 		telescope.load_extension("undo")
 		telescope.load_extension("live_grep_args")
 
