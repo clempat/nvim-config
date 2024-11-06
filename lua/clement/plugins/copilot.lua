@@ -1,5 +1,5 @@
 return {
-	"zbirenbaum/copilot.lua",
+	"github/copilot.lua",
 	build = ":Copilot auth",
 	config = function()
 		local copilot = require("copilot")
