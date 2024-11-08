@@ -6,39 +6,27 @@ return {
 	config = function()
 		local conform = require("conform")
 
-		-- Default formatters configuration
-		local default_formatters = {
-			css = { "prettier" },
-			htmldjango = { "djlint" },
-			graphql = { "prettier" },
-			html = { "prettier" },
-			javascript = { "prettier" },
-			javascriptreact = { "prettier" },
-			json = { "prettier" },
-			lua = { "stylua" },
-			markdown = { "prettier" },
-			nix = { "nixfmt-classic" },
-			python = { "isort", "black" },
-			sh = { "shfmt" },
-			svelte = { "prettier" },
-			sass = { "prettier" },
-			typescript = { "prettier" },
-			typescriptreact = { "prettier" },
-			yaml = { "prettier" },
-		}
-
-		-- Try to load local config
-		local local_config = {}
-		local ok, config = pcall(require, ".nvim")
-		if ok and config.conform and config.conform.formatters_by_ft then
-			-- Merge local formatters with defaults
-			local_config = vim.tbl_deep_extend("force", default_formatters, config.conform.formatters_by_ft)
-		else
-			local_config = default_formatters
-		end
-
-		conform.setup({
-			formatters_by_ft = local_config,
+		local default_config = {
+			formatters_by_ft = {
+				css = { "prettier" },
+				htmldjango = { "djlint" },
+				graphql = { "prettier" },
+				html = { "prettier" },
+				javascript = { "prettier" },
+				javascriptreact = { "prettier" },
+				json = { "prettier" },
+				lua = { "stylua" },
+				markdown = { "prettier" },
+				nix = { "nixfmt-classic" },
+				python = { "isort", "black" },
+				sh = { "shfmt" },
+				svelte = { "prettier" },
+				sass = { "prettier" },
+				typescript = { "prettier" },
+				typescriptreact = { "prettier" },
+				yaml = { "prettier" },
+			},
+			formatters = {},
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
@@ -56,7 +44,20 @@ return {
 					quiet = false,
 				}
 			end,
-		})
+		}
+
+		-- Try to load local config
+		local config_path = vim.fn.findfile(".nvim.lua", vim.fn.getcwd() .. ";")
+
+		if config_path ~= "" then
+			local ok, local_config = pcall(dofile, config_path)
+			if ok and local_config.conform then
+				-- Deep merge all conform options
+				default_config = vim.tbl_deep_extend("force", default_config, local_config.conform)
+			end
+		end
+
+		conform.setup(default_config)
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
