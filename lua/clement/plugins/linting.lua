@@ -1,26 +1,41 @@
 return {
 	"mfussenegger/nvim-lint",
-	opts = {
-		-- Event to trigger linters
-		events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-		linters_by_ft = {
-			fish = { "fish" },
-			javascript = { "eslint_d" },
-			typescript = { "eslint_d" },
-			javascriptreact = { "eslint_d" },
-			typescriptreact = { "eslint_d" },
-			svelte = { "eslint_d" },
-			vue = { "eslint_d" },
-			-- pylint is not working well with venv
-			-- python = { "pylint" },
-			-- Use the "*" filetype to run linters on all filetypes.
-			-- ['*'] = { 'global linter' },
-			-- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
-			-- ['_'] = { 'fallback linter' },
-			-- ["*"] = { "typos" },
-		},
-		linters = {},
-	},
+	opts = function()
+		-- Default configuration
+		local default_opts = {
+			-- Event to trigger linters
+			events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+			linters_by_ft = {
+				fish = { "fish" },
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
+				javascriptreact = { "eslint_d" },
+				typescriptreact = { "eslint_d" },
+				svelte = { "eslint_d" },
+				vue = { "eslint_d" },
+				-- pylint is not working well with venv
+				-- python = { "pylint" },
+				-- Use the "*" filetype to run linters on all filetypes.
+				-- ['*'] = { 'global linter' },
+				-- ["*"] = { "typos" },
+			},
+			linters = {},
+		}
+
+		-- Try to load local project config
+		local local_config = {}
+		local config_path = vim.fn.getcwd() .. "/.nvim.lua"
+		if vim.fn.filereadable(config_path) == 1 then
+			local_config = dofile(config_path)
+		end
+
+		-- Merge configurations
+		if local_config.lint then
+			return vim.tbl_deep_extend("force", default_opts, local_config.lint)
+		end
+
+		return default_opts
+	end,
 	config = function(_, opts)
 		local M = {}
 
