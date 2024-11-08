@@ -55,10 +55,14 @@ in rec {
       pkgs.python311Packages.pip
       pkgs.sqlite
       pkgs.zulu
+      pkgs.nodejs
     ];
 
-  mkExtraConfig = ''
+  mkExtraConfig = { system }: 
+    let pkgs = legacyPackages.${system};
+    in ''
     lua << EOF
+      _G.nodejs = '${pkgs.nodejs}/bin/node'
       require("clement").init()
       require("clement.lazy")
     EOF
@@ -72,7 +76,7 @@ in rec {
       start = mkNeovimPlugins { inherit system; };
     in neovim.override {
       configure = {
-        customRC = mkExtraConfig;
+        customRC = mkExtraConfig { inherit system; };
         packages.main = { inherit start; };
       };
       extraMakeWrapperArgs =
@@ -84,7 +88,7 @@ in rec {
 
   mkHomeManager = { system }:
     let
-      extraConfig = mkExtraConfig;
+      extraConfig = mkExtraConfig { inherit system; };
       extraPackages = mkExtraPackages { inherit system; };
       plugins = mkNeovimPlugins { inherit system; };
     in {
