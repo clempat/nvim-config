@@ -41,10 +41,11 @@ return {
 					"prisma",
 					"query",
 					"svelte",
+					"terraform",
 					"tsx",
 					"typescript",
-					"terraform",
 					"vim",
+					"vue",
 					"yaml",
 				},
 				incremental_selection = {
