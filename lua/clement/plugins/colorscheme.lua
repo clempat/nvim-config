@@ -31,7 +31,7 @@ return {
 					enabled = true,
 				},
 				treesitter = true,
-				treesitter_context = false,
+				treesitter_context = true,
 				symbols_outline = true,
 				illuminate = true,
 				which_key = true,

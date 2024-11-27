@@ -12,6 +12,9 @@ return {
 		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+		-- import mason registry
+		local mason_registry = require("mason-registry")
+
 		local keymap = vim.keymap -- for conciseness
 
 		local opts = { noremap = true, silent = true }
@@ -77,9 +80,23 @@ return {
 		})
 
 		-- configure typescript server with plugin
+		-- Needed for volar:
+		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+			.. "/node_modules/@vue/language-server"
+
 		lspconfig["ts_ls"].setup({
+			init_options = {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = vue_language_server_path,
+						languages = { "vue" },
+					},
+				},
+			},
 			capabilities = capabilities,
 			on_attach = on_attach,
+			filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 		})
 
 		-- configure css server
@@ -150,6 +167,11 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			filetypes = { "vue" },
+			init_options = {
+				vue = {
+					hybridMode = true,
+				},
+			},
 		})
 
 		-- configure python server
