@@ -41,6 +41,7 @@ return {
 					"markdown_inline",
 					"nix",
 					"prisma",
+					"python",
 					"query",
 					"svelte",
 					"terraform",
