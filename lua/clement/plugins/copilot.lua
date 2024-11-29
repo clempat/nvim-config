@@ -17,7 +17,7 @@ return {
 				enabled = true,
 				auto_trigger = true,
 				keymap = {
-					accept = "<C-l>",
+					accept = "<C-space>",
 				},
 			},
 			copilot_node_command = node_path,
