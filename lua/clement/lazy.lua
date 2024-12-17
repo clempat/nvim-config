@@ -15,8 +15,10 @@ require("lazy").setup({ { import = "clement.plugins" }, { import = "clement.plug
 	install = {
 		colorscheme = { "habamax" },
 	},
-	throttle = {
-		enabled = true,	
+	git = {
+		throttle = {
+			enabled = true,	
+		},
 	},
 	checker = {
 		enabled = true,
