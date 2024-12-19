@@ -17,7 +17,7 @@ require("lazy").setup({ { import = "clement.plugins" }, { import = "clement.plug
 	},
 	git = {
 		throttle = {
-			enabled = false,	
+			enabled = true,	
 		},
 	},
 	checker = {
