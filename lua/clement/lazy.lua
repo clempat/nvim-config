@@ -17,13 +17,13 @@ require("lazy").setup({ { import = "clement.plugins" }, { import = "clement.plug
 	},
 	git = {
 		throttle = {
-			enabled = true,	
+			enabled = false,
 		},
 	},
 	checker = {
 		enabled = true,
 		notify = false,
-		concurrency = 1
+		-- concurrency = 1,
 	},
 	change_detection = {
 		notify = false,
