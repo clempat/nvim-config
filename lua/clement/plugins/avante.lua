@@ -47,10 +47,16 @@ return {
 	config = function()
 		require("avante").setup({
 			claude = {
-				api_key_name = { "op", "read", "op://Private/Anthropic/NEOVIM KEY" },
+				api_key_name = {
+					"op",
+					"read",
+					"--account",
+					"patout.1password.com",
+					"op://Private/Anthropic/NEOVIM KEY",
+				},
 			},
 			openai = {
-				api_key_name = { "op", "read", "op://Private/Openai/api_key" },
+				api_key_name = { "op", "read", "--account", "patout.1password.com", "op://Private/Openai/api_key" },
 			},
 		})
 	end,
