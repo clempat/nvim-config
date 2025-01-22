@@ -99,6 +99,17 @@ return {
 			filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 		})
 
+		--- helm
+		lspconfig["helm_ls"].setup({
+			settings = {
+				["helm-ls"] = {
+					yamlls = {
+						path = "yaml-language-server",
+					},
+				},
+			},
+		})
+
 		-- configure css server
 		lspconfig["cssls"].setup({
 			capabilities = capabilities,
