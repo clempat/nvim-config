@@ -51,6 +51,7 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
+				"actionlint", -- GitHub Actions linter
 				"black", -- python formatter
 				"djlint", -- django linter
 				"eslint_d", -- js linter

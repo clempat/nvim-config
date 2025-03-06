@@ -13,6 +13,7 @@ return {
 				typescriptreact = { "eslint_d" },
 				svelte = { "eslint_d" },
 				vue = { "eslint_d" },
+				["yaml.github"] = { "actionlint" }, -- Add actionlint for GitHub Actions workflows
 				-- pylint is not working well with venv
 				-- python = { "pylint" },
 				-- Use the "*" filetype to run linters on all filetypes.
@@ -37,6 +38,12 @@ return {
 		return default_opts
 	end,
 	config = function(_, opts)
+		-- Ensure GitHub Actions workflow files are properly detected
+		vim.filetype.add({
+			pattern = {
+				[".github/workflows/.*%.ya?ml"] = "yaml.github",
+			},
+		})
 		local M = {}
 
 		local lint = require("lint")
