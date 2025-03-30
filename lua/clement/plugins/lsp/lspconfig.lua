@@ -15,6 +15,25 @@ return {
 		-- import mason registry
 		local mason_registry = require("mason-registry")
 
+		-- Setup Hugo template detection
+		vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+			pattern = {"*/layouts/**.html", "*/themes/*/layouts/**.html"},
+			callback = function()
+				-- Check if we're in a Hugo project by looking for config.toml or config.yaml
+				local is_hugo = vim.fn.filereadable(vim.fn.getcwd() .. "/config.toml") == 1 or 
+				                vim.fn.filereadable(vim.fn.getcwd() .. "/config.yaml") == 1 or
+				                vim.fn.filereadable(vim.fn.getcwd() .. "/hugo.toml") == 1 or
+				                vim.fn.filereadable(vim.fn.getcwd() .. "/hugo.yaml") == 1 or
+				                vim.fn.isdirectory(vim.fn.getcwd() .. "/content") == 1
+				
+				if is_hugo then
+					vim.bo.filetype = "gohtmltmpl"
+					vim.notify("Detected Hugo template file", vim.log.levels.INFO)
+				end
+			end,
+			group = vim.api.nvim_create_augroup("HugoTemplateDetection", { clear = true }),
+		})
+
 		local keymap = vim.keymap -- for conciseness
 
 		local opts = { noremap = true, silent = true }
