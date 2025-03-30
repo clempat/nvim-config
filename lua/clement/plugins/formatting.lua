@@ -26,7 +26,6 @@ return {
 				typescriptreact = { "prettier" },
 				yaml = { "prettier" },
 				go = { "gofumpt" },
-				gohtmltmpl = { "prettier", "htmlbeautifier" },
 				gotmpl = { "gofumpt" },
 			},
 			formatters = {},
