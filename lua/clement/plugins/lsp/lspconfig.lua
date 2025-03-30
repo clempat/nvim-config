@@ -243,5 +243,24 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
+
+		-- configure gopls for Go and Go HTML templates
+		lspconfig["gopls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "go", "gomod", "gowork", "gotmpl", "gohtmltmpl" },
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					gofumpt = true,
+					usePlaceholders = true,
+					completeUnimported = true,
+					templateExtensions = { "tmpl", "html" },
+				},
+			},
+		})
 	end,
 }

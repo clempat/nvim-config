@@ -14,6 +14,8 @@ return {
 				svelte = { "eslint_d" },
 				vue = { "eslint_d" },
 				["yaml.github"] = { "actionlint" }, -- Add actionlint for GitHub Actions workflows
+				go = { "golangci-lint" },
+				gohtmltmpl = { "golangci-lint", "htmlhint" },
 				-- pylint is not working well with venv
 				-- python = { "pylint" },
 				-- Use the "*" filetype to run linters on all filetypes.

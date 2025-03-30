@@ -25,6 +25,9 @@ return {
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 				yaml = { "prettier" },
+				go = { "gofumpt" },
+				gohtmltmpl = { "prettier", "htmlbeautifier" },
+				gotmpl = { "gofumpt" },
 			},
 			formatters = {},
 			format_on_save = function(bufnr)
