@@ -37,7 +37,6 @@ return {
 					"gosum",
 					"gowork",
 					"gotmpl",
-					"gohtmltmpl",
 					"graphql",
 					"html",
 					"javascript",
