@@ -1,30 +1,30 @@
 -- @TODO: Check why stylua is failing
 return {
-	"stevearc/conform.nvim",
-	lazy = true,
-	event = { "BufReadPre", "BufNewFile" }, -- to disable, comment this out
-	config = function()
+	"conform.nvim",
+  for_cat = "general.format",
+	event = "DeferredUIEnter",
+	after = function()
 		local conform = require("conform")
 
 		local default_config = {
 			formatters_by_ft = {
-				css = { "prettier" },
+				css = { "prettierd" },
 				htmldjango = { "djlint" },
-				graphql = { "prettier" },
-				html = { "prettier" },
-				javascript = { "prettier" },
-				javascriptreact = { "prettier" },
-				json = { "prettier" },
+				graphql = { "prettierd" },
+				html = { "prettierd" },
+				javascript = { "prettierd" },
+				javascriptreact = { "prettierd" },
+				json = { "prettierd" },
 				lua = { "stylua" },
-				markdown = { "prettier" },
-				nix = { "nixfmt-classic" },
+				markdown = { "prettierd" },
+				nix = { "nixfmt" },
 				python = { "isort", "black" },
 				sh = { "shfmt" },
-				svelte = { "prettier" },
-				sass = { "prettier" },
-				typescript = { "prettier" },
-				typescriptreact = { "prettier" },
-				yaml = { "prettier" },
+				svelte = { "prettierd" },
+				sass = { "prettierd" },
+				typescript = { "prettierd" },
+				typescriptreact = { "prettierd" },
+				yaml = { "prettierd" },
 				go = { "gofumpt" },
 				gotmpl = { "gofumpt" },
 			},

@@ -47,3 +47,10 @@ opt.timeoutlen = 500
 -- Obsidian
 opt.conceallevel = 2
 opt.exrc = true
+
+-- Diagnostic
+vim.diagnostic.config({
+	virtual_text = true, -- Show diagnostics inline
+	signs = true, -- Show signs in the gutter
+	float = { border = "rounded" },
+})

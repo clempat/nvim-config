@@ -1,1 +1,1 @@
-require("clement").init()
+require("clement")

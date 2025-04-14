@@ -1,7 +1,8 @@
 return {
-	"ruifm/gitlinker.nvim",
-	dependencies = "nvim-lua/plenary.nvim",
-	config = function()
+	"gitlinker.nvim",
+	for_cat = "general.extra",
+	event = "DeferredUIEnter",
+	after = function()
 		require("gitlinker").setup({
 			callbacks = {
 				["ssh.dev.azure.com"] = function(url_data)

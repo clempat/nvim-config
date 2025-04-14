@@ -1,5 +1,8 @@
 return {
-	"lewis6991/gitsigns.nvim",
-	event = { "BufReadPre", "BufNewFile" },
-	config = true,
+	"gitsigns.nvim",
+	enabled = true,
+	event = "DeferredUIEnter",
+	after = function()
+		require("gitsigns").setup({})
+	end,
 }

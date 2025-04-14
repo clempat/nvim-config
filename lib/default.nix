@@ -47,6 +47,7 @@ in rec {
     in [
       pkgs.cargo
       pkgs.fzf
+      pkgs.git
       pkgs.luajitPackages.luarocks
       pkgs.nixfmt-classic
       # pkgs.php

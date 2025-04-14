@@ -1,35 +1,220 @@
+-- Telescope is a fuzzy finder that comes with a lot of different things that
+-- it can fuzzy find! It's more than just a "file finder", it can search
+-- many different aspects of Neovim, your workspace, LSP, and more!
+--
+-- The easiest way to use telescope, is to start by doing something like:
+--  :Telescope help_tags
+--
+-- After running this command, a window will open up and you're able to
+-- type in the prompt window. You'll see a list of help_tags options and
+-- a corresponding preview of the help.
+--
+-- Two important keymaps to use while in telescope are:
+--  - Insert mode: <c-/>
+--  - Normal mode: ?
+--
+-- This opens a window that shows you all of the keymaps for the current
+-- telescope picker. This is really useful to discover what Telescope can
+-- do as well as how to actually do it!
+
+-- [[ Configure Telescope ]]
+-- See `:help telescope` and `:help telescope.setup()`
+
+-- Telescope live_grep in git root
+-- Function to find the git root directory based on the current buffer's path
+local function find_git_root()
+	-- Use the current buffer's path as the starting point for the git search
+	local current_file = vim.api.nvim_buf_get_name(0)
+	local current_dir
+	local cwd = vim.fn.getcwd()
+	-- If the buffer is not associated with a file, return nil
+	if current_file == "" then
+		current_dir = cwd
+	else
+		-- Extract the directory from the current file's path
+		current_dir = vim.fn.fnamemodify(current_file, ":h")
+	end
+
+	-- Find the Git root directory from the current file's path
+	local git_root = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
+	if vim.v.shell_error ~= 0 then
+		print("Not a git repository. Searching on current working directory")
+		return cwd
+	end
+	return git_root
+end
+
+-- Custom live_grep function to search in git root
+local function live_grep_git_root()
+	local git_root = find_git_root()
+	if git_root then
+		require("telescope.builtin").live_grep({
+			search_dirs = { git_root },
+		})
+	end
+end
+
 return {
-	"nvim-telescope/telescope.nvim",
+	"telescope.nvim",
 	branch = "0.1.x",
-	dependencies = {
+	for_cat = "general.telescope",
+	cmd = { "Telescope", "LiveGrepGitRoot" },
+	-- NOTE: our on attach function defines keybinds that call telescope.
+	-- so, the on_require handler will load telescope when we use those.
+	on_require = { "telescope" },
+	-- event = "",
+	-- ft = "",
+	load = function(name)
+		vim.cmd.packadd(name)
+		vim.cmd.packadd("telescope-fzf-native.nvim")
+		vim.cmd.packadd("telescope-ui-select.nvim")
+		vim.cmd.packadd("telescope-file-browser.nvim")
+		vim.cmd.packadd("telescope-live-greo-args.nvim")
+		vim.cmd.packadd("git-worktree.nvim")
+		vim.cmd.packadd("package-info.nvim")
+	end,
+
+	keys = {
+		{ "<leader>fM", "<cmd>Telescope notify<CR>", mode = { "n" }, desc = "[S]earch [M]essage" },
+		{ "<leader>fp", live_grep_git_root, mode = { "n" }, desc = "[S]earch git [P]roject root" },
 		{
-			"prochri/telescope-all-recent.nvim",
-			dependencies = {
-				"kkharji/sqlite.lua",
-			},
-			opts = {},
+			"<leader>/",
+			function()
+				-- Slightly advanced example of overriding default behavior and theme
+				-- You can pass additional configuration to telescope to change theme, layout, etc.
+				require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					winblend = 10,
+					previewer = false,
+				}))
+			end,
+			mode = { "n" },
+			desc = "[/] Fuzzily search in current buffer",
 		},
-		-- {
-		-- 	"danielfalk/smart-open.nvim",
-		-- 	branch = "0.2.x",
-		-- 	dependencies = {
-		-- 		"kkharji/sqlite.lua",
-		-- 		{ "nvim-telescope/telescope-fzy-native.nvim" },
-		-- 	},
-		-- },
-		"nvim-lua/plenary.nvim",
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-		"nvim-tree/nvim-web-devicons",
-		"debugloop/telescope-undo.nvim",
-		{ "ThePrimeagen/git-worktree.nvim" },
-		{ "nvim-telescope/telescope-file-browser.nvim" },
-		"vuki656/package-info.nvim",
 		{
-			"nvim-telescope/telescope-live-grep-args.nvim",
-			version = "^1.0.0",
+			"<leader>s/",
+			function()
+				require("telescope.builtin").live_grep({
+					grep_open_files = true,
+					prompt_title = "Live Grep in Open Files",
+				})
+			end,
+			mode = { "n" },
+			desc = "[S]earch [/] in Open Files",
+		},
+		{
+			"<leader><leader>s",
+			function()
+				return require("telescope.builtin").buffers()
+			end,
+			mode = { "n" },
+			desc = "[ ] Find existing buffers",
+		},
+		{
+			"<leader>f.",
+			function()
+				return require("telescope.builtin").oldfiles()
+			end,
+			mode = { "n" },
+			desc = '[S]earch Recent Files ("." for repeat)',
+		},
+		{
+			"<leader>fr",
+			function()
+				return require("telescope.builtin").resume()
+			end,
+			mode = { "n" },
+			desc = "[S]earch [R]esume",
+		},
+		{
+			"<leader>fd",
+			function()
+				return require("telescope.builtin").diagnostics()
+			end,
+			mode = { "n" },
+			desc = "[S]earch [D]iagnostics",
+		},
+		{
+			"<leader>fg",
+			function()
+				return require("telescope.builtin").live_grep()
+			end,
+			mode = { "n" },
+			desc = "[S]earch by [G]rep",
+		},
+		{
+			"<leader>fw",
+			function()
+				return require("telescope.builtin").grep_string()
+			end,
+			mode = { "n" },
+			desc = "[S]earch current [W]ord",
+		},
+		{
+			"<leader>fs",
+			function()
+				return require("telescope.builtin").builtin()
+			end,
+			mode = { "n" },
+			desc = "[S]earch [S]elect Telescope",
+		},
+		{
+			"<leader>ff",
+			function()
+				return require("telescope.builtin").find_files()
+			end,
+			mode = { "n" },
+			desc = "[S]earch [F]iles",
+		},
+		{
+			"<C-p>",
+			function()
+				return require("telescope.builtin").find_files()
+			end,
+			mode = { "n" },
+			desc = "[S]earch [F]iles",
+		},
+		{
+			"<leader>fk",
+			function()
+				return require("telescope.builtin").keymaps()
+			end,
+			mode = { "n" },
+			desc = "[S]earch [K]eymaps",
+		},
+		{
+			"<leader>fh",
+			function()
+				return require("telescope.builtin").help_tags()
+			end,
+			mode = { "n" },
+			desc = "[S]earch [H]elp",
+		},
+		{
+			"<leader>gw",
+			function()
+				return require("telescope").extensions.git_worktree.git_worktree()
+			end,
+			mode = { "n" },
+			desc = "Find [G]it [W]orktree",
+		},
+		{
+			"<leader>gn",
+			function()
+				return require("telescope").extensions.git_worktree.create_git_worktree()
+			end,
+			mode = { "n" },
+			desc = "[G]it [N]ew Branch",
+		},
+		{
+			"<leader>pv",
+			function()
+				return require("telescope").extensions.file_browser.file_browser
+			end,
+			mode = { "n" },
+			desc = "Open find browser",
 		},
 	},
-	config = function()
+	after = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 		local function telescope_buffer_dir()
@@ -103,7 +288,7 @@ return {
 				},
 				find_files = {
 					prompt_prefix = " ",
-					find_command = { "fd", "-H" },
+					-- find_command = { "fd", "-H" },
 				},
 				live_grep = {
 					prompt_prefix = "󰱽 ",
@@ -135,52 +320,16 @@ return {
 						match_filename = false, -- disable zf filename match priority
 					},
 				},
-				-- smart_open = {
-				-- 	cwd_only = true,
-				-- 	filename_first = true,
-				-- },
 			},
 		})
 
-		-- load plugins
-		telescope.load_extension("fzf")
-		telescope.load_extension("git_worktree")
-		telescope.load_extension("package_info")
-		-- telescope.load_extension("smart_open")
-		telescope.load_extension("undo")
-		telescope.load_extension("live_grep_args")
+		-- Enable telescope extensions, if they are installed
+		pcall(require("telescope").load_extension, "fzf")
+		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension, "git_worktree")
+		pcall(require("telescope").load_extension, "package_info")
+		pcall(require("telescope").load_extension, "live_grep_args")
 
-		-- set keymaps
-		local keymap = vim.keymap
-
-		keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-		keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "[F]d recently [O]pened files" })
-		keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "[F]ind [G]it files" })
-		keymap.set(
-			"n",
-			"<leader>fw",
-			":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-			{ desc = "[F]ind current [W]ord" }
-		)
-		keymap.set("n", "<leader>fs", "<cmd>Telescope grep_string<cr>", { desc = "[F]ind [S]tring in cwd" })
-		keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>", { desc = "[F]ind [D]iagnostics" })
-		keymap.set(
-			"n",
-			"<leader>gw",
-			require("telescope").extensions.git_worktree.git_worktrees,
-			{ desc = "Open [G]it [W]orktree" }
-		)
-		keymap.set(
-			"n",
-			"<leader>gn",
-			require("telescope").extensions.git_worktree.create_git_worktree,
-			{ desc = "[G]it [N]ew Branch" }
-		)
-		vim.keymap.set(
-			"n",
-			"<leader>pv",
-			require("telescope").extensions.file_browser.file_browser,
-			{ desc = "Open find browser" }
-		)
+		vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 	end,
 }

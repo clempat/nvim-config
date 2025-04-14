@@ -1,6 +1,7 @@
 return {
-	"echasnovski/mini.nvim",
-	config = function()
+	"mini.nvim",
+	on_cat = "general.extra",
+	after = function()
 		-- Better Around/Inside textobjects
 		--
 		-- Examples:
@@ -8,6 +9,7 @@ return {
 		--  - yinq - [Y]ank [I]nside [N]ext [']quote
 		--  - ci'  - [C]hange [I]nside [']quote
 		require("mini.ai").setup({ n_lines = 500 })
+		require("mini.diff").setup({})
 
 		-- Add/delete/replace surroundings (brackets, quotes, etc.)
 		--

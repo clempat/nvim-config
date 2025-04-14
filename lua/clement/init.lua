@@ -1,8 +1,36 @@
-local function init()
-	require("clement.core")
-	require("clement.plugins")
-end
+-- NOTE: various, non-plugin config
+require("clement.core")
 
-return {
-	init = init,
-}
+-- NOTE: register an extra lze handler with the spec_field 'for_cat'
+-- that makes enabling an lze spec for a category slightly nicer
+require("lze").register_handlers(require('nixCatsUtils.lzUtils').for_cat)
+
+-- NOTE: Register another one from lzextras. This one makes it so that
+-- you can set up lsps within lze specs,
+-- and trigger lspconfig setup hooks only on the correct filetypes
+require('lze').register_handlers(require('lzextras').lsp)
+-- demonstrated in ./LSPs/init.lua
+
+-- NOTE: general plugins
+require("clement.plugins")
+
+-- NOTE: obviously, more plugins, but more organized by what they do below
+require("clement.LSPs")
+
+-- NOTE: we even ask nixCats if we included our debug stuff in this setup! (we didnt)
+-- But we have a good base setup here as an example anyway!
+-- if nixCats('debug') then
+--   require('clement.debug')
+-- end
+-- NOTE: we included these though! Or, at least, the category is enabled.
+-- these contain nvim-lint and conform setups.
+-- if nixCats('lint') then
+--   require('clement.lint')
+-- end
+-- if nixCats('format') then
+--   require('clement.format')
+-- end
+-- NOTE: I didnt actually include any linters or formatters in this configuration,
+-- but it is enough to serve as an example.
+
+
