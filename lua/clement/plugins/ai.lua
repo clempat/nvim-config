@@ -14,6 +14,9 @@ return {
 					},
 				},
 				copilot_node_command = vim.env.NODE_PATH,
+				filetype = {
+					markdown = true,
+				},
 			})
 		end,
 	},
