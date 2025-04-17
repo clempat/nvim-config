@@ -223,16 +223,6 @@ return {
 
 		telescope.setup({
 			defaults = {
-				file_ignore_patterns = {
-					".git/",
-					"node_modules",
-					".cache/",
-					".next/",
-					".DS_Store",
-					".vscode/",
-					".venv/",
-					".direnv/",
-				},
 				layout_config = {
 					height = 0.90,
 					width = 0.90,
@@ -258,9 +248,15 @@ return {
 				},
 				mappings = {
 					i = {
-						["<C-k>"] = actions.move_selection_previous, -- move to prev result
-						["<C-j>"] = actions.move_selection_next, -- move to next result
+						["<C-k>"] = actions.move_selection_previous,
+						["<C-j>"] = actions.move_selection_next,
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+						["<C-space>"] = actions.toggle_selection + actions.move_selection_next,
+						["<C-a>"] = actions.select_all,
+					},
+					n = {
+						["<C-space>"] = actions.toggle_selection,
+						["<C-a>"] = actions.select_all,
 					},
 				},
 			},
@@ -288,10 +284,26 @@ return {
 				},
 				find_files = {
 					prompt_prefix = " ",
-					-- find_command = { "fd", "-H" },
+					sorting_strategy = "ascending", -- Ensure ascending order
+					find_command = {
+						"fd",
+						"--type",
+						"f",
+						"--hidden", -- Include hidden files
+						"--no-ignore-vcs", -- Respect .gitignore but show untracked files
+						"--color",
+						"never",
+						"-E",
+						"node_modules",
+					},
+					previewer = true,
+					layout_config = {
+						preview_width = 0.5,
+					},
 				},
 				live_grep = {
 					prompt_prefix = "󰱽 ",
+					previewer = true,
 				},
 				grep_string = {
 					prompt_prefix = "󰱽 ",
@@ -309,26 +321,40 @@ return {
 					layout_config = { height = 40 },
 				},
 				["zf-native"] = {
-					file = { -- options for sorting file-like items
-						enable = true, -- override default telescope file sorter
-						highlight_results = true, -- highlight matching text in results
-						match_filename = true, -- enable zf filename match priority
+					file = {
+						enable = true,
+						highlight_results = true,
+						match_filename = true,
 					},
-					generic = { -- options for sorting all other items
-						enable = true, -- override default telescope generic item sorter
-						highlight_results = true, -- highlight matching text in results
-						match_filename = false, -- disable zf filename match priority
+					generic = {
+						enable = true,
+						highlight_results = true,
+						match_filename = false,
 					},
+				},
+				frecency = {
+					show_scores = true,
+					show_unindexed = true,
+					ignore_patterns = { "*.git/*", "*/tmp/*" },
 				},
 			},
 		})
 
-		-- Enable telescope extensions, if they are installed
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
 		pcall(require("telescope").load_extension, "git_worktree")
 		pcall(require("telescope").load_extension, "package_info")
 		pcall(require("telescope").load_extension, "live_grep_args")
+		pcall(require("telescope").load_extension, "frecency")
+
+		vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
+		vim.api.nvim_create_user_command("FindDotfiles", function()
+			require("telescope.builtin").find_files({
+				prompt_title = "Dotfiles",
+				cwd = "~/.config",
+				hidden = true,
+			})
+		end, {})
 
 		vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 	end,
