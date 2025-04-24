@@ -203,13 +203,14 @@
               ];
 
               extra = with pkgs.vimPlugins; [
+                gitlinker-nvim
                 lualine-lsp-progress
-                which-key-nvim
                 mini-nvim
                 snacks-nvim
-                gitlinker-nvim
                 trouble-nvim
                 vim-carbon-now-sh
+                vista-vim
+                which-key-nvim
               ];
 
               database = with pkgs.vimPlugins; [
