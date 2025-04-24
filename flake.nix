@@ -129,6 +129,8 @@
             };
 
             ai = with pkgs; [ nodejs_23 ];
+
+            python = with pkgs; [ pyright ruff ];
           };
 
           # This is for plugins that will load at startup without using packadd:
@@ -302,6 +304,7 @@
             noice = true;
             frontend = true;
             database = true;
+            python = true;
             colorscheme = "catppuccin-frappe";
           };
         };

@@ -101,6 +101,34 @@ require("lze").load({
 		},
 	},
 	{
+		"pyright",
+		for_cat = "python",
+		filetypes = { "python" },
+		lsp = {
+			settings = {
+				python = {
+					analysis = {
+						autoSearchPaths = true,
+						useLibraryCodeForTypes = true,
+						diagnosticMode = "workspace",
+					},
+				},
+			},
+		},
+	},
+	{
+		"ruff",
+		for_cat = "python",
+		filetypes = { "python" },
+		lsp = {
+			settings = {
+				ruff = {
+					args = { "--fix" }, -- Automatically fix issues if possible
+				},
+			},
+		},
+	},
+	{
 		"nixd",
 		enabled = true,
 		lsp = {
