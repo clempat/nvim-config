@@ -118,6 +118,7 @@
               typescript-language-server
               vue-language-server
               tailwindcss-language-server
+              astro-language-server
             ];
 
             infrastructure = with pkgs; [ terraform-ls ];

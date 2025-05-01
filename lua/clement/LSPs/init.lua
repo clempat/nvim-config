@@ -129,6 +129,19 @@ require("lze").load({
 		},
 	},
 	{
+		"astro",
+		for_cat = "frontend",
+		filetypes = { "astro" },
+		lsp = {
+			settings = {
+				astro = {
+					format = { enable = true },
+					lint = { enable = true },
+				},
+			},
+		},
+	},
+	{
 		"nixd",
 		enabled = true,
 		lsp = {
