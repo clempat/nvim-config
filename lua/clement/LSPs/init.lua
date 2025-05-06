@@ -83,6 +83,28 @@ require("lze").load({
 		},
 	},
 	{
+		"tailwindcss",
+		for_cat = "frontend",
+		lsp = {
+			filetypes = {
+				"html",
+				"css",
+				"javascript",
+				"typescript",
+				"javascriptreact",
+				"typescriptreact",
+				"astro",
+				"vue",
+			},
+			settings = {
+				tailwindcss = {
+					lint = { cssConflict = "ignore" },
+					validate = true,
+				},
+			},
+		},
+	},
+	{
 		"yamlls",
 		enabled = true,
 		load = function(name)
