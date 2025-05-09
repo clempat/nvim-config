@@ -33,6 +33,20 @@ require("lze").load({
 		end,
 	},
 	{
+		"terraformls",
+		for_cat = "infrastructure",
+		filetypes = { "terraform", "tf" },
+		lsp = {
+			settings = {
+				terraform = {
+					format = { enable = true },
+					validate = true,
+					completion = { enable = true },
+				},
+			},
+		},
+	},
+	{
 		-- name of the lsp
 		"lua_ls",
 		enabled = nixCats("lua") or nixCats("neonixdev") or false,

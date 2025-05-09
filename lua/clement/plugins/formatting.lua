@@ -1,7 +1,7 @@
 -- @TODO: Check why stylua is failing
 return {
 	"conform.nvim",
-  for_cat = "general.format",
+	for_cat = "general.format",
 	event = "DeferredUIEnter",
 	after = function()
 		local conform = require("conform")
@@ -27,6 +27,7 @@ return {
 				yaml = { "prettierd" },
 				go = { "gofumpt" },
 				gotmpl = { "gofumpt" },
+				terraform = { "terraform_fmt" },
 			},
 			formatters = {},
 			format_on_save = function(bufnr)

@@ -121,7 +121,7 @@
               astro-language-server
             ];
 
-            infrastructure = with pkgs; [ terraform-ls ];
+            infrastructure = with pkgs; [ terraform-ls terraform ];
 
             neonixdev = {
               # also you can do this.
@@ -306,6 +306,7 @@
             frontend = true;
             database = true;
             python = true;
+            infrastructure = true;
             colorscheme = "catppuccin-frappe";
           };
         };
