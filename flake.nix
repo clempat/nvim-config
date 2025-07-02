@@ -132,6 +132,8 @@
             ai = with pkgs; [ nodejs_23 ];
 
             python = with pkgs; [ pyright ruff ];
+
+            debug = { node = with pkgs; [ vscode-js-debug ]; };
           };
 
           # This is for plugins that will load at startup without using packadd:
@@ -147,6 +149,8 @@
                 ReplaceWithRegister
               ];
             };
+
+            debug = with pkgs.vimPlugins; [ nvim-nio ];
 
             # You can retreive information from the
             # packageDefinitions of the package this was packaged with.
@@ -221,6 +225,15 @@
                 vim-dadbod-ui
                 vim-dadbod-completion
               ];
+
+              debug = with pkgs.vimPlugins; {
+                # it is possible to add default values.
+                # there is nothing special about the word "default"
+                # but we have turned this subcategory into a default value
+                # via the extraCats section at the bottom of categoryDefinitions.
+                default = [ nvim-dap nvim-dap-ui nvim-dap-virtual-text ];
+                go = [ nvim-dap-go ];
+              };
             };
 
             tracking = with pkgs.vimPlugins; [ vim-wakatime ];
@@ -234,6 +247,11 @@
             ];
 
             noice = with pkgs.vimPlugins; [ noice-nvim nui-nvim nvim-notify ];
+          };
+
+          extraCats = {
+            debug = [[ "debug" "default" ]];
+            node = [[ "debug" "node" ]];
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
@@ -308,6 +326,8 @@
             python = true;
             infrastructure = true;
             colorscheme = "catppuccin-frappe";
+            debug = true;
+            node = true;
           };
         };
       };
