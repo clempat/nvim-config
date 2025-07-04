@@ -129,7 +129,7 @@
               # and each will be its own sub category
             };
 
-            ai = with pkgs; [ nodejs_23 ];
+            ai = with pkgs; [ nodejs ];
 
             python = with pkgs; [ pyright ruff ];
 
@@ -267,7 +267,7 @@
           # this section is for environmentVariables that should be available
           # at RUN TIME for plugins. Will be available to path within neovim terminal
           environmentVariables = {
-            ai = { NODE_PATH = "${pkgs.nodejs_23}/bin/node"; };
+            ai = { NODE_PATH = "${pkgs.nodejs}/bin/node"; };
           };
 
           # If you know what these are, you can provide custom ones by category here.
