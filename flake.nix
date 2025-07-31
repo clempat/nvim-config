@@ -112,6 +112,8 @@
                 stylua
                 djlint
               ];
+
+              extra = with pkgs; [ imagemagick_light ];
             };
 
             frontend = with pkgs; [
@@ -131,7 +133,7 @@
 
             ai = with pkgs; [ nodejs ];
 
-            python = with pkgs; [ pyright ruff ];
+            python = with pkgs; [ ty ruff ];
 
             debug = { node = with pkgs; [ vscode-js-debug ]; };
           };
