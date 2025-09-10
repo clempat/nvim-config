@@ -130,6 +130,10 @@ return {
 								return vim.bo.filetype ~= "copilot-chat"
 							end,
 						},
+						dadbod = {
+							name = "Dadbod",
+							module = "vim_dadbod_completion.blink",
+						},
 					},
 				},
 
