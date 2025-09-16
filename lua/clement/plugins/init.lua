@@ -83,4 +83,5 @@ require("lze").load({
 	{ import = "clement.plugins.noice" },
 	{ import = "clement.plugins.mini" },
 	{ import = "clement.plugins.gitsigns" },
+	{ import = "clement.plugins.debug" },
 })

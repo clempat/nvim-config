@@ -118,6 +118,7 @@
 
             frontend = with pkgs; [
               typescript-language-server
+              vtsls
               vue-language-server
               tailwindcss-language-server
               astro-language-server
@@ -133,7 +134,7 @@
 
             ai = with pkgs; [ nodejs ];
 
-            python = with pkgs; [ ty ruff ];
+            python = with pkgs; [ ty ruff python311Packages.debugpy ];
 
             debug = { node = with pkgs; [ vscode-js-debug ]; };
           };
@@ -235,6 +236,7 @@
                 # via the extraCats section at the bottom of categoryDefinitions.
                 default = [ nvim-dap nvim-dap-ui nvim-dap-virtual-text ];
                 go = [ nvim-dap-go ];
+                python = [ nvim-dap-python ];
               };
             };
 
@@ -254,6 +256,7 @@
           extraCats = {
             debug = [[ "debug" "default" ]];
             node = [[ "debug" "node" ]];
+            python_debug = [[ "debug" "python" ]];
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
@@ -330,6 +333,7 @@
             colorscheme = "catppuccin-frappe";
             debug = true;
             node = true;
+            python_debug = true;
           };
         };
       };

@@ -92,60 +92,35 @@ require("lze").load({
 		-- also these are regular specs and you can use before and after and all the other normal fields
 	},
 	{
-		"ts_ls",
+		"vtsls",
 		enabled = true,
 		for_cat = "frontend",
 		lsp = {
 			filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
-			init_options = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = vim.fn.stdpath("data")
-							.. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-						languages = { "vue" },
-					},
-				},
-			},
 			settings = {
 				typescript = {
-					tsserver = {
-						useSyntaxServer = false,
-					},
 					inlayHints = {
-						includeInlayParameterNameHints = "all",
-						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-						includeInlayFunctionParameterTypeHints = true,
-						includeInlayVariableTypeHints = true,
-						includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-						includeInlayPropertyDeclarationTypeHints = true,
-						includeInlayFunctionLikeReturnTypeHints = true,
-						includeInlayEnumMemberValueHints = true,
+						parameterNames = { enabled = "all" },
+						parameterTypes = { enabled = true },
+						variableTypes = { enabled = true },
+						propertyDeclarationTypes = { enabled = true },
+						functionLikeReturnTypes = { enabled = true },
+						enumMemberValues = { enabled = true },
 					},
 				},
+
 			},
 		},
 	},
 	{
-		"volar",
+		"vue_ls",
 		enabled = true,
 		for_cat = "frontend",
 		lsp = {
 			filetypes = { "vue" },
 			init_options = {
 				vue = {
-					hybridMode = false, -- disables hybrid mode for better inlay hints
-				},
-			},
-			settings = {
-				typescript = {
-					inlayHints = {
-						enumMemberValues = { enabled = true },
-						functionLikeReturnTypes = { enabled = true },
-						propertyDeclarationTypes = { enabled = true },
-						parameterTypes = { enabled = true, suppressWhenArgumentMatchesName = true },
-						variableTypes = { enabled = true },
-					},
+					hybridMode = true,
 				},
 			},
 		},

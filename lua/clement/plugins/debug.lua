@@ -10,13 +10,10 @@ local function get_args(config)
 	return config
 end
 
-require("lze").load({
+return {
 	{
 		"nvim-dap",
-		for_cat = { cat = "debug", default = false },
-		-- cmd = { "" },
-		-- event = "",
-		-- ft = "",
+		for_cat = "debug",
 		keys = {
 			{ "<leader>d", "", desc = "+debug", mode = { "n", "v" } },
 			{
@@ -140,15 +137,10 @@ require("lze").load({
 			},
 		},
 		colorscheme = "catppuccin-frappe",
-		load = (require("nixCatsUtils").isNixCats and function(name)
+		load = function(name)
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("nvim-dap-ui")
 			vim.cmd.packadd("nvim-dap-virtual-text")
-		end) or function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-dap-ui")
-			vim.cmd.packadd("nvim-dap-virtual-text")
-			vim.cmd.packadd("mason-nvim-dap.nvim")
 		end,
 		after = function(plugin)
 			local dap = require("dap")
@@ -233,10 +225,36 @@ require("lze").load({
 	},
 	{
 		"nvim-dap-go",
-		for_cat = { cat = "debug.go", default = false },
+		for_cat = "debug",
 		on_plugin = { "nvim-dap" },
 		after = function(plugin)
 			require("dap-go").setup()
 		end,
 	},
-})
+	{
+		"nvim-dap-python",
+		for_cat = "python",
+		on_plugin = { "nvim-dap" },
+		after = function(plugin)
+			local dap_python = require("dap-python")
+			dap_python.setup("python")
+			
+			table.insert(require("dap").configurations.python, {
+				type = "python",
+				request = "launch",
+				name = "Launch file",
+				program = "${file}",
+				pythonPath = function()
+					local cwd = vim.fn.getcwd()
+					if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+						return cwd .. "/venv/bin/python"
+					elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+						return cwd .. "/.venv/bin/python"
+					else
+						return "/usr/bin/python"
+					end
+				end,
+			})
+		end,
+	},
+}
