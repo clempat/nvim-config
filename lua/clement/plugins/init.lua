@@ -69,6 +69,7 @@ require("lze").load({
 	}, -- git integration
 	{ "auto-pairs", event = "DeferredUIEnter", for_cat = "general.always" },
 	{ "vista.vim", event = "DeferredUIEnter", for_cat = "general.extra" },
+	{ import = "clement.plugins.dashboard" },
 	{ import = "clement.plugins.telescope" },
 	{ import = "clement.plugins.treesitter" },
 	{ import = "clement.plugins.formatting" },

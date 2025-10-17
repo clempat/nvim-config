@@ -37,6 +37,12 @@
     # overlay defined for custom builds in the overlays directory.
     # for specific tags, branches and commits, see:
     # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#examples
+    
+    # Add lzextras since it's not in stable nixpkgs
+    "plugins-lzextras" = {
+      url = "github:BirdeeHub/lzextras";
+      flake = false;
+    };
 
   };
 
@@ -105,8 +111,19 @@
               ];
 
               format = with pkgs; [
-                black
-                isort
+                # Skip tests for faster builds of Python formatters
+                (black.overrideAttrs {
+                  doCheck = false;
+                  doInstallCheck = false;
+                  pytestCheckPhase = "";
+                  installCheckPhase = "";
+                })
+                (isort.overrideAttrs {
+                  doCheck = false;
+                  doInstallCheck = false;
+                  pytestCheckPhase = "";
+                  installCheckPhase = "";
+                })
                 nixfmt-rfc-style
                 prettierd
                 stylua
@@ -134,7 +151,19 @@
 
             ai = with pkgs; [ nodejs ];
 
-            python = with pkgs; [ ty ruff python311Packages.debugpy ];
+            python = with pkgs; [ 
+              ty 
+              ruff 
+              # Skip debugpy tests for much faster builds (~10x speedup)
+              # debugpy has extensive test suite that's not needed for runtime
+              (python311Packages.debugpy.overrideAttrs {
+                doCheck = false;
+                doInstallCheck = false;
+                pytestCheckPhase = "";
+                installCheckPhase = "";
+                checkPhase = "";
+              })
+            ];
 
             debug = { node = with pkgs; [ vscode-js-debug ]; };
           };
@@ -144,7 +173,7 @@
             general = with pkgs.vimPlugins; {
               # you can make subcategories!!!
               # (always isnt a special name, just the one I chose for this subcategory)
-              always = [ lze lzextras vim-repeat plenary-nvim nvim-notify ];
+              always = [ lze pkgs.neovimPlugins.lzextras vim-repeat plenary-nvim nvim-notify dashboard-nvim ];
               extra = [
                 oil-nvim
                 nvim-web-devicons
@@ -237,6 +266,7 @@
                 default = [ nvim-dap nvim-dap-ui nvim-dap-virtual-text ];
                 go = [ nvim-dap-go ];
                 python = [ nvim-dap-python ];
+
               };
             };
 
@@ -257,6 +287,8 @@
             debug = [[ "debug" "default" ]];
             node = [[ "debug" "node" ]];
             python_debug = [[ "debug" "python" ]];
+            cmp = [[ "general" "cmp" ]];  # Enable general.cmp subcategory for completion
+
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
@@ -304,7 +336,25 @@
       packageDefinitions = {
         # These are the names of your packages
         # you can include as many as you wish.
-        nvim = { pkgs, name, ... }: {
+        nvim = { pkgs, name, ... }: 
+          let
+            categories = {
+              general = true;
+              themer = true;
+              neonixdev = true;
+              ai = true;
+              noice = true;
+              frontend = true;
+              database = true;
+              python = true;
+              infrastructure = true;
+              colorscheme = "catppuccin-frappe";
+              debug = true;          # Enable debugging support
+              node = true;           # Enable Node.js debugging  
+              python_debug = true;   # Enable Python debugging
+              cmp = true;  # Enable completion plugins (general.cmp subcategory)
+            };
+          in {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
@@ -315,26 +365,12 @@
             # your alias may not conflict with your other packages.
             aliases = [ "vim" ];
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
-            hosts.python3.enable = true;
+            hosts.python3.enable = categories.python or categories.python_debug or false;
             hosts.node.enable = true;
           };
           # and a set of categories that you want
           # (and other information to pass to lua)
-          categories = {
-            general = true;
-            themer = true;
-            neonixdev = true;
-            ai = true;
-            noice = true;
-            frontend = true;
-            database = true;
-            python = true;
-            infrastructure = true;
-            colorscheme = "catppuccin-frappe";
-            debug = true;
-            node = true;
-            python_debug = true;
-          };
+          inherit categories;
         };
       };
       # In this section, the main thing you will need to do is change the default package name

@@ -24,12 +24,20 @@ return {
 				sass = { "prettierd" },
 				typescript = { "prettierd" },
 				typescriptreact = { "prettierd" },
+				vue = { "prettierd" },
 				yaml = { "prettierd" },
 				go = { "gofumpt" },
 				gotmpl = { "gofumpt" },
 				terraform = { "terraform_fmt" },
 			},
-			formatters = {},
+			-- Disable eslint_d to prevent JSON parsing errors
+			formatters = {
+				eslint_d = {
+					condition = function()
+						return false -- Always disable eslint_d since it's not available
+					end,
+				},
+			},
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
@@ -54,9 +62,21 @@ return {
 
 		if config_path ~= "" then
 			local ok, local_config = pcall(dofile, config_path)
-			if ok and local_config.conform then
-				-- Deep merge all conform options
+			if ok and local_config and local_config.conform then
+				-- Deep merge all conform options, but warn about eslint_d
+				if local_config.conform.formatters_by_ft then
+					for ft, formatters in pairs(local_config.conform.formatters_by_ft) do
+						if vim.tbl_contains(formatters, "eslint_d") then
+							vim.notify(
+								string.format("Warning: eslint_d formatter configured for %s but not available", ft),
+								vim.log.levels.WARN
+							)
+						end
+					end
+				end
 				default_config = vim.tbl_deep_extend("force", default_config, local_config.conform)
+			elseif not ok then
+				vim.notify("Failed to load .nvim.lua: " .. tostring(local_config), vim.log.levels.ERROR)
 			end
 		end
 

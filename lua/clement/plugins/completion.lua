@@ -34,18 +34,21 @@ return {
 		end,
 	},
 	{
-		"blink.cmp",
+		"blink.cmp",  -- Match the actual plugin directory name
 		for_cat = "general.cmp",
-		-- cmd = { "" },
 		event = { "DeferredUIEnter" },
-		on_require = { "blink.cmp" },
-		-- ft = "",
-		-- keys = "",
-		-- colorscheme = "",
+		load = function(name)
+			-- Explicitly load the plugin
+			vim.cmd.packadd(name)
+		end,
 		after = function()
 			-- [[ Configure blink-cmp ]]
 			-- See `:help cmp`
-			local cmp = require("blink.cmp")
+			local ok, cmp = pcall(require, "blink.cmp")
+			if not ok then
+				vim.notify("blink.cmp not available: " .. tostring(cmp), vim.log.levels.WARN)
+				return
+			end
 
 			cmp.setup({
 				-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
