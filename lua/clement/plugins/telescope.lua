@@ -160,18 +160,44 @@ return {
 		{
 			"<leader>ff",
 			function()
-				return require("telescope.builtin").find_files()
+				-- Use smart-open if available, otherwise fall back to find_files
+				local ok, smart_open = pcall(require, "telescope._extensions.smart_open")
+				if ok then
+					require("telescope").extensions.smart_open.smart_open({
+						cwd_only = false,
+						filename_first = true,
+					})
+				else
+					require("telescope.builtin").find_files()
+				end
 			end,
 			mode = { "n" },
-			desc = "[S]earch [F]iles",
+			desc = "[S]earch [F]iles (Smart)",
 		},
 		{
 			"<C-p>",
 			function()
+				-- Use smart-open if available, otherwise fall back to find_files
+				local ok, smart_open = pcall(require, "telescope._extensions.smart_open")
+				if ok then
+					require("telescope").extensions.smart_open.smart_open({
+						cwd_only = false,
+						filename_first = true,
+					})
+				else
+					require("telescope.builtin").find_files()
+				end
+			end,
+			mode = { "n" },
+			desc = "[S]earch [F]iles (Smart)",
+		},
+		{
+			"<leader>fF",
+			function()
 				return require("telescope.builtin").find_files()
 			end,
 			mode = { "n" },
-			desc = "[S]earch [F]iles",
+			desc = "[S]earch [F]iles (Traditional)",
 		},
 		{
 			"<leader>fk",
@@ -257,13 +283,92 @@ return {
 					n = {
 						["<C-space>"] = actions.toggle_selection,
 						["<C-a>"] = actions.select_all,
-					},
 				},
+			},
+			-- Global ignore patterns for all pickers
+			file_ignore_patterns = {
+				"%.git/",
+				"%.vscode/",
+				"%.idea/",
+				"node_modules/",
+				"%.npm/",
+				"%.yarn/",
+				"build/",
+				"dist/",
+				"target/",
+				"%.class$",
+				"%.o$",
+				"%.so$",
+				"%.dll$",
+				"%.exe$",
+				"%.out$",
+				"%.cache/",
+				"%.tmp/",
+				"%.temp/",
+				"%.DS_Store$",
+				"Thumbs%.db$",
 			},
 			pickers = {
 				buffers = {
 					prompt_prefix = "󰸩 ",
+					show_all_buffers = true,
+					sort_mru = true, -- Sort by most recently used
 				},
+				commands = {
+					prompt_prefix = " ",
+					layout_config = {
+						height = 0.63,
+						width = 0.78,
+					},
+				},
+				command_history = {
+					prompt_prefix = " ",
+					layout_config = {
+						height = 0.63,
+						width = 0.58,
+					},
+				},
+				git_files = {
+					prompt_prefix = "󰊢 ",
+					show_untracked = true,
+				},
+				find_files = {
+					prompt_prefix = " ",
+					sorting_strategy = "ascending",
+					find_command = {
+						"fd",
+						"--type", "f",
+						"--hidden", -- Include hidden files
+						"--no-ignore-vcs", -- Respect .gitignore but show untracked files
+						"--color", "never",
+						"--exclude", "node_modules",
+						"--exclude", ".git",
+						"--exclude", "build",
+						"--exclude", "dist",
+						"--exclude", "target",
+						"--exclude", ".cache",
+						"--exclude", ".tmp",
+						"--exclude", ".temp",
+					},
+					previewer = true,
+					layout_config = {
+						preview_width = 0.5,
+					},
+				},
+				live_grep = {
+					prompt_prefix = "󰱽 ",
+					previewer = true,
+					additional_args = function()
+						return { "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*" }
+					end,
+				},
+				grep_string = {
+					prompt_prefix = "󰱽 ",
+					additional_args = function()
+						return { "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*" }
+					end,
+				},
+			},
 				commands = {
 					prompt_prefix = " ",
 					layout_config = {
@@ -337,6 +442,15 @@ return {
 					show_unindexed = true,
 					ignore_patterns = { "*.git/*", "*/tmp/*" },
 				},
+				smart_open = {
+					match_algorithm = "fzf",
+					disable_devicons = false,
+					result_limit = 50,
+					show_scores = false,
+					ignore_patterns = { "*.git/*", "**/node_modules/*", "**/build/*", "**/dist/*" },
+					cwd_only = false,
+					filename_first = true,
+				},
 			},
 		})
 
@@ -346,6 +460,7 @@ return {
 		pcall(require("telescope").load_extension, "package_info")
 		pcall(require("telescope").load_extension, "live_grep_args")
 		pcall(require("telescope").load_extension, "frecency")
+		pcall(require("telescope").load_extension, "smart_open")
 
 		vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 		vim.api.nvim_create_user_command("FindDotfiles", function()

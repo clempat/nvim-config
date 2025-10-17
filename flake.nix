@@ -43,6 +43,12 @@
       url = "github:BirdeeHub/lzextras";
       flake = false;
     };
+    
+    # Add smart-open.nvim for improved file finding
+    "plugins-smart-open-nvim" = {
+      url = "github:danielfalk/smart-open.nvim";
+      flake = false;
+    };
 
   };
 
@@ -108,6 +114,7 @@
                 lazygit
                 vscode-langservers-extracted
                 yaml-language-server
+                sqlite  # Required for smart-open.nvim
               ];
 
               format = with pkgs; [
@@ -203,14 +210,17 @@
           # use with packadd and an autocommand in config to achieve lazy loading
           optionalPlugins = {
             general = {
-              telescope = with pkgs.vimPlugins; [
-                telescope-fzf-native-nvim
-                telescope-ui-select-nvim
-                telescope-nvim
-                telescope-file-browser-nvim
-                package-info-nvim
-                telescope-live-grep-args-nvim
-              ];
+            telescope = with pkgs.vimPlugins; [
+              telescope-fzf-native-nvim
+              telescope-ui-select-nvim
+              telescope-nvim
+              telescope-file-browser-nvim
+              package-info-nvim
+              telescope-live-grep-args-nvim
+              telescope-frecency-nvim
+              sqlite-lua
+              pkgs.neovimPlugins.smart-open-nvim
+            ];
               treesitter = with pkgs.vimPlugins; [
                 nvim-treesitter-textobjects
                 nvim-treesitter.withAllGrammars
@@ -239,6 +249,7 @@
                 vim-sleuth
                 auto-pairs
                 SchemaStore-nvim
+                undotree
               ];
 
               extra = with pkgs.vimPlugins; [

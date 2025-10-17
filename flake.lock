@@ -47,11 +47,28 @@
         "type": "github"
       }
     },
+    "plugins-smart-open-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748444767,
+        "narHash": "sha256-usLu/18JRLveeOllxiqc607SZCvJWg9Gw8uJzZVbohg=",
+        "owner": "danielfalk",
+        "repo": "smart-open.nvim",
+        "rev": "f079c3201a0a62b1582563bd5ce4256c253634d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "danielfalk",
+        "repo": "smart-open.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs",
-        "plugins-lzextras": "plugins-lzextras"
+        "plugins-lzextras": "plugins-lzextras",
+        "plugins-smart-open-nvim": "plugins-smart-open-nvim"
       }
     }
   },
