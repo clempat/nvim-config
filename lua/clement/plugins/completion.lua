@@ -39,7 +39,7 @@ return {
 		dep_of = { "blink.cmp" },
 	},
 	{
-		"blink.cmp",  -- Match the actual plugin directory name
+		"blink.cmp", -- Match the actual plugin directory name
 		for_cat = "general.cmp",
 		event = { "DeferredUIEnter" },
 		load = function(name)
@@ -132,6 +132,7 @@ return {
 					per_filetype = {
 						sql = { "snippets", "dadbod", "buffer" },
 						AvanteInput = { "avante", "buffer" },
+						codecompanion = { "codecompanion" },
 					},
 					providers = {
 						path = {
@@ -146,6 +147,11 @@ return {
 						avante = {
 							name = "Avante",
 							module = "blink-cmp-avante",
+						},
+						codecompanion = {
+							name = "CodeCompanion",
+							module = "codecompanion.providers.completion.blink",
+							enabled = true,
 						},
 					},
 				},

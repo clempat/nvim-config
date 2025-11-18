@@ -23,6 +23,7 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionChat litellm<CR>", { desc = "[c]ode: codecompanion ch[a]t" })
 keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionActions<CR>", { desc = "[c]ode: [c]odecompanion actions" })
 keymap.set("n", "<leader>ct", "<cmd>CodeCompanionChat litellm Toggle<CR>", { desc = "[c]ode: codecompanion [t]oggle" })
+keymap.set("n", "<leader>ci", "<cmd>CodeCompanion<CR>", { desc = "[c]ode: codecompanion [i]nline" })
 
 -- AI / Avante (commented - switch to compare)
 -- keymap.set({ "n", "v" }, "<leader>ca", "<cmd>AvanteAsk<CR>", { desc = "[c]ode: [a]vante ask" })

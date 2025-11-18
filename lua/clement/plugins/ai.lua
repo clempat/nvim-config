@@ -71,13 +71,6 @@ return {
 					},
 					-- acp section: opencode is built-in, no config needed
 				},
-				strategies = {
-					chat = {
-						opts = {
-							completion_provider = "default",
-						},
-					},
-				},
 			})
 		end,
 	},
