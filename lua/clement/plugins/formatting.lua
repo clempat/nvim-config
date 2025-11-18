@@ -28,7 +28,6 @@ return {
 				yaml = { "prettierd" },
 				go = { "gofumpt" },
 				gotmpl = { "gofumpt" },
-				terraform = { "terraform_fmt" },
 			},
 			-- Disable eslint_d to prevent JSON parsing errors
 			formatters = {

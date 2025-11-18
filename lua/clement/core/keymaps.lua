@@ -18,3 +18,13 @@ keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" 
 keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
+
+-- AI / CodeCompanion
+keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionChat litellm<CR>", { desc = "[c]ode: codecompanion ch[a]t" })
+keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionActions<CR>", { desc = "[c]ode: [c]odecompanion actions" })
+keymap.set("n", "<leader>ct", "<cmd>CodeCompanionChat litellm Toggle<CR>", { desc = "[c]ode: codecompanion [t]oggle" })
+
+-- AI / Avante (commented - switch to compare)
+-- keymap.set({ "n", "v" }, "<leader>ca", "<cmd>AvanteAsk<CR>", { desc = "[c]ode: [a]vante ask" })
+-- keymap.set("n", "<leader>cc", "<cmd>AvanteChat<CR>", { desc = "[c]ode: avante [c]hat" })
+-- keymap.set("n", "<leader>cz", "<cmd>AvanteZen<CR>", { desc = "[c]ode: avante [z]en mode" })

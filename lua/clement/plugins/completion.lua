@@ -34,6 +34,11 @@ return {
 		end,
 	},
 	{
+		"blink-cmp-avante",
+		for_cat = "general.cmp",
+		dep_of = { "blink.cmp" },
+	},
+	{
 		"blink.cmp",  -- Match the actual plugin directory name
 		for_cat = "general.cmp",
 		event = { "DeferredUIEnter" },
@@ -126,6 +131,7 @@ return {
 					default = { "lsp", "path", "snippets", "buffer" },
 					per_filetype = {
 						sql = { "snippets", "dadbod", "buffer" },
+						AvanteInput = { "avante", "buffer" },
 					},
 					providers = {
 						path = {
@@ -136,6 +142,10 @@ return {
 						dadbod = {
 							name = "Dadbod",
 							module = "vim_dadbod_completion.blink",
+						},
+						avante = {
+							name = "Avante",
+							module = "blink-cmp-avante",
 						},
 					},
 				},

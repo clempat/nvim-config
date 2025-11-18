@@ -50,6 +50,24 @@
       flake = false;
     };
 
+    # Add blink-cmp-avante for Avante completion
+    "plugins-blink-cmp-avante" = {
+      url = "github:Kaiser-Yang/blink-cmp-avante";
+      flake = false;
+    };
+
+    # Add mcphub.nvim for MCP integration
+    "plugins-mcphub-nvim" = {
+      url = "github:ravitemer/mcphub.nvim";
+      flake = false;
+    };
+
+    # Add codecompanion.nvim for AI coding assistant
+    "plugins-codecompanion-nvim" = {
+      url = "github:olimorris/codecompanion.nvim";
+      flake = false;
+    };
+
   };
 
   # see :help nixCats.flake.outputs
@@ -148,7 +166,7 @@
               astro-language-server
             ];
 
-            infrastructure = with pkgs; [ terraform-ls terraform ];
+            infrastructure = with pkgs; [ terraform-ls ];
 
             neonixdev = {
               # also you can do this.
@@ -190,6 +208,12 @@
             };
 
             debug = with pkgs.vimPlugins; [ nvim-nio ];
+
+            ai = with pkgs.vimPlugins; [
+              copilot-lua
+              copilot-lualine
+              pkgs.neovimPlugins.codecompanion-nvim
+            ];
 
             # You can retreive information from the
             # packageDefinitions of the package this was packaged with.
@@ -237,6 +261,7 @@
                 luasnip
                 friendly-snippets
                 lspkind-nvim
+                pkgs.neovimPlugins.blink-cmp-avante
               ];
 
               always = with pkgs.vimPlugins; [
@@ -286,9 +311,8 @@
             neonixdev = with pkgs.vimPlugins; [ lazydev-nvim ];
 
             ai = with pkgs.vimPlugins; [
-              copilot-lua
-              copilot-lualine
-              codecompanion-nvim
+              pkgs.neovimPlugins.mcphub-nvim
+              # avante-nvim  # Commented to test CodeCompanion ACP
             ];
 
             noice = with pkgs.vimPlugins; [ noice-nvim nui-nvim nvim-notify ];
