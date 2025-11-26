@@ -1,4 +1,3 @@
--- @TODO: Check why stylua is failing
 return {
 	"conform.nvim",
 	for_cat = "general.format",
@@ -18,7 +17,7 @@ return {
 				lua = { "stylua" },
 				markdown = { "prettierd" },
 				nix = { "nixfmt" },
-				python = { "isort", "black" },
+				python = { "ruff_organize_imports", "ruff_format" },
 				sh = { "shfmt" },
 				svelte = { "prettierd" },
 				sass = { "prettierd" },
@@ -27,16 +26,9 @@ return {
 				vue = { "prettierd" },
 				yaml = { "prettierd" },
 				go = { "gofumpt" },
-				gotmpl = { "gofumpt" },
+				-- gotmpl has no reliable formatter, use LSP or manual
 			},
-			-- Disable eslint_d to prevent JSON parsing errors
-			formatters = {
-				eslint_d = {
-					condition = function()
-						return false -- Always disable eslint_d since it's not available
-					end,
-				},
-			},
+
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
@@ -48,7 +40,7 @@ return {
 					return
 				end
 				return {
-					lsp_fallback = true,
+					lsp_format = "fallback",
 					async = false,
 					timeout_ms = 3000,
 					quiet = false,
@@ -83,7 +75,7 @@ return {
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
-				lsp_fallback = true,
+				lsp_format = "fallback",
 				async = false,
 				timeout_ms = 1000,
 			})

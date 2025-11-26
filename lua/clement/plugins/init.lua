@@ -73,6 +73,7 @@ require("lze").load({
 	{ import = "clement.plugins.telescope" },
 	{ import = "clement.plugins.treesitter" },
 	{ import = "clement.plugins.formatting" },
+	{ import = "clement.plugins.lint" },
 	{ import = "clement.plugins.completion" },
 	{ import = "clement.plugins.ai" },
 	{ import = "clement.plugins.lualine" },

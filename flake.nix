@@ -136,23 +136,21 @@
               ];
 
               format = with pkgs; [
-                # Skip tests for faster builds of Python formatters
-                (black.overrideAttrs {
-                  doCheck = false;
-                  doInstallCheck = false;
-                  pytestCheckPhase = "";
-                  installCheckPhase = "";
-                })
-                (isort.overrideAttrs {
-                  doCheck = false;
-                  doInstallCheck = false;
-                  pytestCheckPhase = "";
-                  installCheckPhase = "";
-                })
                 nixfmt-rfc-style
                 prettierd
                 stylua
                 djlint
+                eslint_d
+                shfmt
+                gofumpt
+              ];
+
+              lint = with pkgs; [
+                lua54Packages.luacheck
+                shellcheck
+                yamllint
+                statix
+                golangci-lint
               ];
 
               extra = with pkgs; [ imagemagick_light ];
@@ -256,6 +254,8 @@
 
               format = with pkgs.vimPlugins; [ conform-nvim ];
 
+              lint = with pkgs.vimPlugins; [ nvim-lint ];
+
               cmp = with pkgs.vimPlugins; [
                 blink-cmp
                 luasnip
@@ -323,7 +323,7 @@
             node = [[ "debug" "node" ]];
             python_debug = [[ "debug" "python" ]];
             cmp = [[ "general" "cmp" ]];  # Enable general.cmp subcategory for completion
-
+            lint = [[ "general" "lint" ]]; # Enable general.lint subcategory for linting
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
@@ -388,6 +388,7 @@
               node = true;           # Enable Node.js debugging  
               python_debug = true;   # Enable Python debugging
               cmp = true;  # Enable completion plugins (general.cmp subcategory)
+              lint = true; # Enable linting with nvim-lint
             };
           in {
           # they contain a settings set defined above
