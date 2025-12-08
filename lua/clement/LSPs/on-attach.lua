@@ -51,4 +51,8 @@ return function(_, bufnr)
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 		vim.lsp.buf.format()
 	end, { desc = "Format current buffer with LSP" })
+
+	-- Diagnostics
+	nmap("<leader>e", vim.diagnostic.open_float, "Show diagnostic [E]rror")
+	nmap("<leader>q", vim.diagnostic.setloclist, "Diagnostic [Q]uickfix list")
 end

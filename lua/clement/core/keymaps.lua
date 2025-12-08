@@ -29,3 +29,14 @@ keymap.set("n", "<leader>ci", "<cmd>CodeCompanion<CR>", { desc = "[c]ode: codeco
 -- keymap.set({ "n", "v" }, "<leader>ca", "<cmd>AvanteAsk<CR>", { desc = "[c]ode: [a]vante ask" })
 -- keymap.set("n", "<leader>cc", "<cmd>AvanteChat<CR>", { desc = "[c]ode: avante [c]hat" })
 -- keymap.set("n", "<leader>cz", "<cmd>AvanteZen<CR>", { desc = "[c]ode: avante [z]en mode" })
+
+-- Diagnostics: toggle virtual lines vs virtual text
+local diagnostic_virtual_lines = false
+keymap.set("n", "<leader>uD", function()
+	diagnostic_virtual_lines = not diagnostic_virtual_lines
+	vim.diagnostic.config({
+		virtual_text = not diagnostic_virtual_lines,
+		virtual_lines = diagnostic_virtual_lines,
+	})
+	vim.notify("Diagnostic virtual lines: " .. (diagnostic_virtual_lines and "ON" or "OFF"))
+end, { desc = "Toggle diagnostic virtual lines" })

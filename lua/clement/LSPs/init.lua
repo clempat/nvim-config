@@ -1,11 +1,14 @@
 -- NOTE: This file uses lzextras.lsp handler https://github.com/BirdeeHub/lzextras?tab=readme-ov-file#lsp-handler
+-- Register the lzextras lsp handler first
+local lze = require("lze")
+local lzextras = require("lzextras")
+lze.register_handlers(lzextras.lsp)
+
 -- This is a slightly more performant fallback function
 -- for when you don't provide a filetype to trigger on yourself.
 -- nixCats gives us the paths, which is faster than searching the rtp!
-local lze = require("lze")
-local old_ft_fallback = lze.h and lze.h.lsp and lze.h.lsp.get_ft_fallback() or function() return {} end
-if lze.h and lze.h.lsp and lze.h.lsp.set_ft_fallback then
-	lze.h.lsp.set_ft_fallback(function(name)
+local old_ft_fallback = lzextras.lsp.lib.get_ft_fallback()
+lzextras.lsp.lib.set_ft_fallback(function(name)
 	local lspcfg = nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" })
 		or nixCats.pawsible({ "allPlugins", "start", "nvim-lspconfig" })
 	if lspcfg then
@@ -17,8 +20,7 @@ if lze.h and lze.h.lsp and lze.h.lsp.set_ft_fallback then
 	else
 		return old_ft_fallback(name)
 	end
-	end)
-end -- this is how to use the lsp handler.
+end)
 
 require("lze").load({
 	{
@@ -40,6 +42,7 @@ require("lze").load({
 				config.capabilities = blink.get_lsp_capabilities(config.capabilities)
 			end
 			vim.lsp.config(plugin.name, config)
+			vim.lsp.enable(plugin.name)
 		end,
 		before = function(_)
 			-- Setup default on_attach for all LSPs
@@ -106,8 +109,8 @@ require("lze").load({
 		"vtsls",
 		enabled = true,
 		for_cat = "frontend",
+		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
 		lsp = {
-			filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
 			settings = {
 				typescript = {
 					inlayHints = {
@@ -203,7 +206,6 @@ require("lze").load({
 		},
 	},
 
-
 	{
 		"astro",
 		for_cat = "frontend",
@@ -264,5 +266,3 @@ require("lze").load({
 		},
 	},
 })
-
-
