@@ -11,9 +11,9 @@ return {
 						enable = true,
 					},
 					shortcut = {
-						{ 
-							desc = "󰈞 Find Files", 
-							group = "Label", 
+						{
+							desc = "󰈞 Find Files",
+							group = "Label",
 							action = function()
 								local ok, smart_open = pcall(require, "telescope._extensions.smart_open")
 								if ok then
@@ -21,20 +21,24 @@ return {
 								else
 									require("telescope.builtin").find_files()
 								end
-							end, 
-							key = "f" 
+							end,
+							key = "f",
 						},
-						{ 
-							desc = " Recent Files", 
-							group = "Number", 
-							action = function() require("telescope.builtin").oldfiles() end, 
-							key = "r" 
+						{
+							desc = " Recent Files",
+							group = "Number",
+							action = function()
+								require("telescope.builtin").oldfiles()
+							end,
+							key = "r",
 						},
-						{ 
-							desc = " Find Text", 
-							group = "@property", 
-							action = function() require("telescope.builtin").live_grep() end, 
-							key = "g" 
+						{
+							desc = " Find Text",
+							group = "@property",
+							action = function()
+								require("telescope.builtin").live_grep()
+							end,
+							key = "g",
 						},
 						{ desc = " New File", group = "DiagnosticHint", action = "ene | startinsert", key = "n" },
 						{ desc = " Configuration", group = "Special", action = "edit $MYVIMRC", key = "c" },

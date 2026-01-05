@@ -37,13 +37,13 @@
     # overlay defined for custom builds in the overlays directory.
     # for specific tags, branches and commits, see:
     # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#examples
-    
+
     # Add lzextras since it's not in stable nixpkgs
     "plugins-lzextras" = {
       url = "github:BirdeeHub/lzextras";
       flake = false;
     };
-    
+
     # Add smart-open.nvim for improved file finding
     "plugins-smart-open-nvim" = {
       url = "github:danielfalk/smart-open.nvim";
@@ -132,7 +132,7 @@
                 lazygit
                 vscode-langservers-extracted
                 yaml-language-server
-                sqlite  # Required for smart-open.nvim
+                sqlite # Required for smart-open.nvim
               ];
 
               format = with pkgs; [
@@ -174,9 +174,9 @@
 
             ai = with pkgs; [ nodejs ];
 
-            python = with pkgs; [ 
-              ty 
-              ruff 
+            python = with pkgs; [
+              ty
+              ruff
               # Skip debugpy tests for much faster builds (~10x speedup)
               # debugpy has extensive test suite that's not needed for runtime
               (python311Packages.debugpy.overrideAttrs {
@@ -196,7 +196,14 @@
             general = with pkgs.vimPlugins; {
               # you can make subcategories!!!
               # (always isnt a special name, just the one I chose for this subcategory)
-              always = [ lze pkgs.neovimPlugins.lzextras vim-repeat plenary-nvim nvim-notify dashboard-nvim ];
+              always = [
+                lze
+                pkgs.neovimPlugins.lzextras
+                vim-repeat
+                plenary-nvim
+                nvim-notify
+                dashboard-nvim
+              ];
               extra = [
                 oil-nvim
                 nvim-web-devicons
@@ -232,19 +239,18 @@
           # use with packadd and an autocommand in config to achieve lazy loading
           optionalPlugins = {
             general = {
-            telescope = with pkgs.vimPlugins; [
-              telescope-fzf-native-nvim
-              telescope-ui-select-nvim
-              telescope-nvim
-              telescope-file-browser-nvim
-              package-info-nvim
-              telescope-live-grep-args-nvim
-              telescope-frecency-nvim
-              sqlite-lua
-              pkgs.neovimPlugins.smart-open-nvim
-            ];
+              telescope = with pkgs.vimPlugins; [
+                telescope-fzf-native-nvim
+                telescope-ui-select-nvim
+                telescope-nvim
+                telescope-file-browser-nvim
+                package-info-nvim
+                telescope-live-grep-args-nvim
+                telescope-frecency-nvim
+                sqlite-lua
+                pkgs.neovimPlugins.smart-open-nvim
+              ];
               treesitter = with pkgs.vimPlugins; [
-                nvim-treesitter-textobjects
                 nvim-treesitter.withAllGrammars
                 nvim-treesitter-context
                 # This is for if you only want some of the grammars
@@ -310,10 +316,11 @@
 
             neonixdev = with pkgs.vimPlugins; [ lazydev-nvim ];
 
-            ai = with pkgs.vimPlugins; [
-              pkgs.neovimPlugins.mcphub-nvim
-              # avante-nvim  # Commented to test CodeCompanion ACP
-            ];
+            ai = with pkgs.vimPlugins;
+              [
+                pkgs.neovimPlugins.mcphub-nvim
+                # avante-nvim  # Commented to test CodeCompanion ACP
+              ];
 
             noice = with pkgs.vimPlugins; [ noice-nvim nui-nvim nvim-notify ];
           };
@@ -322,8 +329,14 @@
             debug = [[ "debug" "default" ]];
             node = [[ "debug" "node" ]];
             python_debug = [[ "debug" "python" ]];
-            cmp = [[ "general" "cmp" ]];  # Enable general.cmp subcategory for completion
-            lint = [[ "general" "lint" ]]; # Enable general.lint subcategory for linting
+            cmp = [[
+              "general"
+              "cmp"
+            ]]; # Enable general.cmp subcategory for completion
+            lint = [[
+              "general"
+              "lint"
+            ]]; # Enable general.lint subcategory for linting
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
@@ -371,7 +384,7 @@
       packageDefinitions = {
         # These are the names of your packages
         # you can include as many as you wish.
-        nvim = { pkgs, name, ... }: 
+        nvim = { pkgs, name, ... }:
           let
             categories = {
               general = true;
@@ -384,30 +397,31 @@
               python = true;
               infrastructure = true;
               colorscheme = "catppuccin-frappe";
-              debug = true;          # Enable debugging support
-              node = true;           # Enable Node.js debugging  
-              python_debug = true;   # Enable Python debugging
-              cmp = true;  # Enable completion plugins (general.cmp subcategory)
+              debug = true; # Enable debugging support
+              node = true; # Enable Node.js debugging
+              python_debug = true; # Enable Python debugging
+              cmp = true; # Enable completion plugins (general.cmp subcategory)
               lint = true; # Enable linting with nvim-lint
             };
           in {
-          # they contain a settings set defined above
-          # see :help nixCats.flake.outputs.settings
-          settings = {
-            suffix-path = true;
-            suffix-LD = true;
-            wrapRc = true;
-            # IMPORTANT:
-            # your alias may not conflict with your other packages.
-            aliases = [ "vim" ];
-            # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
-            hosts.python3.enable = categories.python or categories.python_debug or false;
-            hosts.node.enable = true;
+            # they contain a settings set defined above
+            # see :help nixCats.flake.outputs.settings
+            settings = {
+              suffix-path = true;
+              suffix-LD = true;
+              wrapRc = true;
+              # IMPORTANT:
+              # your alias may not conflict with your other packages.
+              aliases = [ "vim" ];
+              # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+              hosts.python3.enable =
+                categories.python or categories.python_debug or false;
+              hosts.node.enable = true;
+            };
+            # and a set of categories that you want
+            # (and other information to pass to lua)
+            inherit categories;
           };
-          # and a set of categories that you want
-          # (and other information to pass to lua)
-          inherit categories;
-        };
       };
       # In this section, the main thing you will need to do is change the default package name
       # to the name of the packageDefinitions entry you wish to use as the default.
