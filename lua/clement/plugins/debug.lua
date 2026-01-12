@@ -14,7 +14,7 @@ return {
 	{
 		"nvim-dap",
 		for_cat = "debug",
-		lazy = false,  -- Load nvim-dap eagerly to ensure it's available for other plugins
+		lazy = false, -- Load nvim-dap eagerly to ensure it's available for other plugins
 		keys = {
 			{ "<leader>d", "", desc = "+debug", mode = { "n", "v" } },
 			{
@@ -173,21 +173,62 @@ return {
 				host = "localhost",
 				port = "${port}",
 				executable = {
-					command = "js-debug-adapter",
+					command = "js-debug",
 					args = { "${port}" },
-				}
+				},
 			}
-			
+
 			dap.configurations.javascript = {
 				{
 					type = "pwa-node",
-					request = "launch", 
+					request = "launch",
 					name = "Launch file",
 					program = "${file}",
 					cwd = "${workspaceFolder}",
+					sourceMaps = true,
+					skipFiles = { "<node_internals>/**", "node_modules/**" },
+				},
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Debug NestJS",
+					runtimeExecutable = "npm",
+					runtimeArgs = { "run", "start:debug", "--", "--inspect-brk" },
+					cwd = "${workspaceFolder}",
+					sourceMaps = true,
+					skipFiles = { "<node_internals>/**", "node_modules/**" },
+					outFiles = { "${workspaceFolder}/dist/**/*.js" },
+					console = "integratedTerminal",
+					restart = true,
+				},
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Debug Jest Test",
+					runtimeExecutable = "node",
+					runtimeArgs = {
+						"--inspect-brk",
+						"${workspaceFolder}/node_modules/.bin/jest",
+						"--runInBand",
+						"--no-coverage",
+						"${file}",
+					},
+					cwd = "${workspaceFolder}",
+					sourceMaps = true,
+					skipFiles = { "<node_internals>/**", "node_modules/**" },
+					console = "integratedTerminal",
+				},
+				{
+					type = "pwa-node",
+					request = "attach",
+					name = "Attach to process",
+					processId = require("dap.utils").pick_process,
+					cwd = "${workspaceFolder}",
+					sourceMaps = true,
+					skipFiles = { "<node_internals>/**", "node_modules/**" },
 				},
 			}
-			
+
 			dap.configurations.typescript = dap.configurations.javascript
 		end,
 	},
@@ -197,12 +238,31 @@ return {
 		event = "DeferredUIEnter",
 		load = function(name)
 			vim.cmd.packadd("nvim-dap-ui")
-			vim.cmd.packadd("nvim-nio")  -- Required dependency
+			vim.cmd.packadd("nvim-nio") -- Required dependency
 		end,
 		keys = {
-			{ "<leader>du", function() require("dapui").toggle() end, desc = "Debug: Toggle UI" },
-			{ "<leader>de", function() require("dapui").eval() end, desc = "Debug: Eval", mode = {"n", "v"} },
-			{ "<F7>", function() require("dapui").toggle() end, desc = "Debug: Toggle UI" },
+			{
+				"<leader>du",
+				function()
+					require("dapui").toggle()
+				end,
+				desc = "Debug: Toggle UI",
+			},
+			{
+				"<leader>de",
+				function()
+					require("dapui").eval()
+				end,
+				desc = "Debug: Eval",
+				mode = { "n", "v" },
+			},
+			{
+				"<F7>",
+				function()
+					require("dapui").toggle()
+				end,
+				desc = "Debug: Toggle UI",
+			},
 		},
 		after = function(plugin)
 			local dapui = require("dapui")
@@ -232,7 +292,7 @@ return {
 		end,
 	},
 	{
-		"nvim-dap-virtual-text", 
+		"nvim-dap-virtual-text",
 		for_cat = "debug",
 		event = "DeferredUIEnter",
 		load = function(name)
@@ -276,7 +336,7 @@ return {
 
 			-- Setup with Python path - debugpy should be available in the environment
 			dap_python.setup("python")
-			
+
 			-- Add custom Python configurations
 			local ok_dap, dap = pcall(require, "dap")
 			if ok_dap then
@@ -301,7 +361,7 @@ return {
 	},
 	{
 		"nvim-dap-go",
-		for_cat = "debug", 
+		for_cat = "debug",
 		ft = "go",
 		after = function(plugin)
 			local ok, dap_go = pcall(require, "dap-go")
