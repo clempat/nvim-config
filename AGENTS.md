@@ -1,18 +1,21 @@
 # AGENTS.md - Neovim Configuration
 
 ## Build/Test Commands
+
 - `nix run .#nvim` - Run the Neovim configuration locally
 - `nix flake check` - Validate flake configuration
 - `nix build` - Build the Neovim package
 - No traditional test suite - configuration is validated through Nix flake checks
 
 ## Code Structure
+
 - **Language**: Lua configuration for Neovim
 - **Package Manager**: nixCats (Nix-based plugin management)
 - **Plugin Loader**: lze (lazy loading system)
 - **Main entry**: `init.lua` → `lua/clement/init.lua` → `lua/clement/core/init.lua`
 
 ## Code Style Guidelines
+
 - **Imports**: Use `require("module.path")` for Lua modules
 - **Formatting**: Use tabs for indentation, snake_case for variables/functions
 - **Plugin Loading**: Use lze specs with `for_cat` for conditional loading by nixCats categories
@@ -25,12 +28,13 @@
 ⚠️ **ALWAYS follow these patterns to avoid debugging issues:**
 
 1. **for_cat Syntax**: Use `for_cat = "category.subcategory"` (string), never `for_cat = nixCats("category")`
-2. **Plugin Placement**: VimEnter plugins → `startupPlugins`, lazy-loaded → `optionalPlugins`  
+2. **Plugin Placement**: VimEnter plugins → `startupPlugins`, lazy-loaded → `optionalPlugins`
 3. **Import Pattern**: Always add `{ import = "clement.plugins.plugin-name" }` to `plugins/init.lua`
 4. **Check Conflicts**: Look for existing similar plugins or autocommands before adding new ones
 5. **Verify Documentation**: Use Context7 to get current plugin documentation, don't assume config structure
 
 ## File Organization
+
 - `lua/clement/core/` - Core Neovim configuration (options, keymaps, autocommands)
 - `lua/clement/plugins/` - Individual plugin configurations
 - `lua/clement/LSPs/` - LSP-specific configurations
@@ -39,37 +43,44 @@
 ## Development Tools and Documentation
 
 ### Context7 MCP Integration
+
 When implementing features or debugging issues, **always check fresh documentation with Context7**:
 
 #### Usage Pattern:
+
 1. **Resolve Library ID**: Use `resolve-library-id` to find the correct Context7-compatible library ID
 2. **Get Documentation**: Use `get-library-docs` with the resolved ID to fetch up-to-date docs
 3. **Focus Topics**: Use the `topic` parameter to get specific information (e.g., "installation", "configuration", "api")
 
 #### Key Libraries:
+
 - `/microsoft/debugpy` - Python debugger configuration
 - `/saghen/blink.cmp` - Modern Neovim completion engine
 - `/hrsh7th/nvim-cmp` - Traditional completion engine (for comparison)
 - `/neovim/nvim-lspconfig` - LSP configuration (though use `vim.lsp.config` in 0.11+)
 
 #### Example:
+
 ```lua
 -- Before implementing, check docs:
--- 1. resolve-library-id: "blink.cmp" 
+-- 1. resolve-library-id: "blink.cmp"
 -- 2. get-library-docs: "/saghen/blink.cmp" with topic "installation configuration"
 -- 3. Implement based on fresh documentation
 ```
 
 ### NixOS MCP Integration
+
 Use NixOS MCP tools for package discovery and management:
 
 #### Available Commands:
+
 - `nixos_search(query, search_type="packages")` - Search for packages in nixpkgs
 - `nixos_info(name, type="package")` - Get detailed package information
 - `nixos_channels()` - List available NixOS channels
 - `nixos_stats(channel="unstable")` - Get channel statistics
 
 #### Common Patterns:
+
 ```bash
 # Search for vim plugins
 nixos_search("vimplugin-NAME", "packages")
@@ -82,6 +93,7 @@ nixos_info("package-name", "package")
 ```
 
 #### Package Naming Rules:
+
 - **nixpkgs package names**: Often use hyphens (e.g., `blink-cmp`)
 - **Plugin directory names**: May use dots (e.g., `blink.cmp`)
 - **Always verify**: Check actual plugin directory structure in `/nix/store/.../pack/myNeovimPackages/opt/`
@@ -168,11 +180,14 @@ return {
 ```
 
 #### Performance Optimization:
+
 - **Skip tests**: Use `overrideAttrs { doCheck = false; }` for Python packages
 - **Disable installation checks**: Add `doInstallCheck = false; pytestCheckPhase = "";`
 - **Example**: See `debugpy`, `black`, `isort` overrides in `flake.nix`
 
 #### LSP Configuration:
+
 - **Neovim 0.11+**: Use `vim.lsp.config()` instead of `require('lspconfig')`
 - **Integration**: Add `blink.get_lsp_capabilities()` for completion engine compatibility
 - **Default on_attach**: Ensure consistent LSP behavior across all servers
+
