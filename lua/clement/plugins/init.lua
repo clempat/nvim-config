@@ -84,6 +84,7 @@ require("lze").load({
 	{ import = "clement.plugins.trouble" },
 	{ import = "clement.plugins.noice" },
 	{ import = "clement.plugins.mini" },
+	{ import = "clement.plugins.diffview" },
 	{ import = "clement.plugins.gitsigns" },
 	{ import = "clement.plugins.debug" },
 	{ import = "clement.plugins.undotree" },

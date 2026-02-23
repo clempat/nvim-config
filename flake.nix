@@ -304,6 +304,7 @@
               ];
 
               extra = with pkgs.vimPlugins; [
+                diffview-nvim
                 gitlinker-nvim
                 lualine-lsp-progress
                 mini-nvim
