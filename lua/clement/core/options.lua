@@ -31,7 +31,7 @@ vim.g.mapleader = " "
 
 opt.cursorline = false
 opt.termguicolors = true
-vim.g.syntax = "enable"
+vim.g.syntax = false
 opt.winblend = 0
 opt.wildoptions = "pum"
 opt.pumblend = 30
