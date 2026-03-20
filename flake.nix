@@ -174,8 +174,7 @@
             };
 
             frontend = with pkgs; [
-              typescript-language-server
-              vtsls
+              typescript-go
               vue-language-server
               tailwindcss-language-server
               astro-language-server
