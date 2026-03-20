@@ -110,7 +110,28 @@ require("lze").load({
 		enabled = true,
 		for_cat = "frontend",
 		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-		lsp = {},
+		lsp = {
+			settings = {
+				typescript = {
+					inlayHints = {
+						parameterNames = { enabled = "all" },
+						parameterTypes = { enabled = true },
+						variableTypes = { enabled = true },
+						propertyDeclarationTypes = { enabled = true },
+						functionLikeReturnTypes = { enabled = true },
+						enumMemberValues = { enabled = true },
+					},
+				},
+				javascript = {
+					inlayHints = {
+						parameterNames = { enabled = "all" },
+						parameterTypes = { enabled = true },
+						variableTypes = { enabled = true },
+						functionLikeReturnTypes = { enabled = true },
+					},
+				},
+			},
+		},
 	},
 
 	{
