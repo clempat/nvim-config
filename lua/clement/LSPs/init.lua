@@ -111,6 +111,7 @@ require("lze").load({
 		for_cat = "frontend",
 		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
 		lsp = {
+			cmd = { "tsc", "--lsp", "--stdio" },
 			settings = {
 				typescript = {
 					inlayHints = {
