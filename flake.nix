@@ -153,7 +153,7 @@
               ];
 
               format = with pkgs; [
-                nixfmt-rfc-style
+                nixfmt
                 prettierd
                 stylua
                 djlint
